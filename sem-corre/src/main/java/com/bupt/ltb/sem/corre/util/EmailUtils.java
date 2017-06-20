@@ -3,8 +3,6 @@ package com.bupt.ltb.sem.corre.util;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * 邮件工具类
@@ -12,11 +10,9 @@ import org.springframework.stereotype.Component;
  * @author Hogan
  * 
  */
-@Component("emailUtils")
-@Scope("singleton")
 public class EmailUtils {
 
-	private Logger log = Logger.getLogger(getClass());
+	private static Logger log = Logger.getLogger(EmailUtils.class);
 
 	private static final String HOST_NAME = "smtp.163.com";
 	private static final String USERNAME = "18800162572@163.com";
@@ -30,7 +26,7 @@ public class EmailUtils {
 	 * @param content
 	 * @return
 	 */
-	public boolean sendHtmlEmail(String receiver, String subject, String content) {
+	public static boolean sendHtmlEmail(String receiver, String subject, String content) {
 		HtmlEmail email = new HtmlEmail();
 		email.setHostName(HOST_NAME);
 		email.setAuthentication(USERNAME, PASSWORD);
