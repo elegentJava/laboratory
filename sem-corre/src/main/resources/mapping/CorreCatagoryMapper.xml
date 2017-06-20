@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.corre.mapper.CorreCategoryMapper" >
+	<resultMap type="CorreCategory" id="CorreCategoryResult">
+		<id column="ccid" property="cc_id"/>
+		<result column="cc_content" property="content"/>
+		<result column="cc_fatherid" property="fatherId"/>
+	</resultMap>
+	
+	
+	<select id="findAllCorreCategories" resultMap="CorreCategoryResult">
+		select cc_id,cc_content,cc_fatherid
+		from co_correcategory
+		<if test='cc_id=!"0"'></if>
+	</select>
+	
+</mapper>
