@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bupt.ltb.sem.corre.mapper.CorreMapper" >
+<mapper namespace="com.bupt.ltb.sem.corre.mapper.CorreMapper">
+
 	<resultMap type="Corre" id="CorreResult">
-		<id column="corre_id" property="correId"/>
-		<result column="corre_english" property="correEnglish"/>
-		<result column="corre_chinese" property="correChinese"/>
-		<result column="cc_id" property="correCategory"/>
+		<id column="corre_id" property="correId" />
+		<result column="corre_english" property="correEnglish" />
+		<result column="corre_chinese" property="correChinese" />
+		<result column="cc_id" property="correCategory" />
 	</resultMap>
-	<select id="findCorreById" resultMap="CorreResult" parameterType="java.lang.Integer">
-	   select corre_id,corre_english,corre_chinese
-	   from co_corre
-	   where cc_id=#{cc_id}
-	</select>
 	
+	<select id="findCorreById" resultMap="CorreResult" parameterType="java.lang.Integer">
+		select corre_id,corre_english,corre_chinese
+		from co_corre
+		where cc_id=#{cc_id}
+	</select>
+
 </mapper>

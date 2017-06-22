@@ -1,5 +1,7 @@
 package com.bupt.ltb.sem.corre.pojo;
 
+import java.util.List;
+
 /**
  * 函电类别
  * 
@@ -10,7 +12,7 @@ public class CorreCategory {
 
 	private Integer ccid;
 	private String content;
-	private Integer fatherId;
+	private List<CorreCategory> sonCategories;
 
 	public Integer getCcid() {
 		return ccid;
@@ -28,12 +30,12 @@ public class CorreCategory {
 		this.content = content;
 	}
 
-	public Integer getFatherId() {
-		return fatherId;
+	public List<CorreCategory> getSonCategories() {
+		return sonCategories;
 	}
 
-	public void setFatherId(Integer fatherId) {
-		this.fatherId = fatherId;
+	public void setSonCategories(List<CorreCategory> sonCategories) {
+		this.sonCategories = sonCategories;
 	}
 
 }

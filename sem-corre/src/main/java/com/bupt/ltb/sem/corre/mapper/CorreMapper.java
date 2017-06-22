@@ -9,5 +9,6 @@ import com.bupt.ltb.sem.corre.pojo.Corre;
  * @date 2017年6月19日
  */
 public interface CorreMapper {
+
 	public Corre findCorreById(int ccid);
 }

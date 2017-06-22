@@ -21,7 +21,7 @@ import com.bupt.ltb.sem.corre.service.CorreService;
  *
  */
 @Controller
-@RequestMapping("/corre")
+@RequestMapping("/c")
 public class CorreController {
 
 	private Logger log = Logger.getLogger(getClass());
@@ -35,7 +35,7 @@ public class CorreController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadCorreCategory")
+	@RequestMapping("lcc")
 	public @ResponseBody JSONObject loadCorreCategory(@RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
@@ -54,7 +54,7 @@ public class CorreController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadCorre")
+	@RequestMapping("lc")
 	public @ResponseBody JSONObject loadCorre(@RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {

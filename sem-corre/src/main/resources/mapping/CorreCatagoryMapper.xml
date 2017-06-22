@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bupt.ltb.sem.corre.mapper.CorreCategoryMapper" >
-	<resultMap type="CorreCategory" id="CorreCategoryResult">
-		<id column="ccid" property="cc_id"/>
-		<result column="cc_content" property="content"/>
-		<result column="cc_fatherid" property="fatherId"/>
+<mapper namespace="com.bupt.ltb.sem.corre.mapper.CorreCategoryMapper">
+
+	<resultMap type="CorreCategory" id="ThirdCategories">
+		<id column="f_cc_id" property="ccid" />
+		<result column="f_cc_content" property="content" />
+		<collection property="sonCategories" column="cc_fatherid" ofType="CorreCategory">
+			<id column="s_cc_id" property="ccid" />
+			<result column="s_cc_content" property="content" />
+			<collection property="sonCategories" column="cc_fatherid" ofType="CorreCategory">
+				<id column="g_cc_id" property="ccid" />
+				<result column="g_cc_content" property="content" />
+			</collection>
+		</collection>
 	</resultMap>
-	
-	
-	<select id="findAllCorreCategories" resultMap="CorreCategoryResult">
-		select cc_id,cc_content,cc_fatherid
-		from co_correcategory
-		<if test='cc_id=!"0"'></if>
+
+
+	<select id="findAllCorreCategories" resultMap="ThirdCategories">
+		select 
+		c1.cc_id f_cc_id,c1.cc_content f_cc_content,c2.cc_id s_cc_id,c2.cc_content s_cc_content,c3.cc_id g_cc_id,c3.cc_content g_cc_content
+		from co_correcategory c1,co_correcategory c2,co_correcategory c3 
+		where c2.cc_fatherid = c1.cc_id and c3.cc_fatherid = c2.cc_id;
 	</select>
 	
+	<select id="findAllCategoriesByFatherId" parameterType="java.lang.Integer" resultMap="ThirdCategories">
+		select 
+		c1.cc_id f_cc_id,c1.cc_content f_cc_content,c2.cc_id s_cc_id,c2.cc_content s_cc_content,c3.cc_id g_cc_id,c3.cc_content g_cc_content
+		from co_correcategory c1,co_correcategory c2,co_correcategory c3 
+		where c2.cc_fatherid = c1.cc_id and c3.cc_fatherid = c2.cc_id and c1.cc_id = #{fatherId};
+	</select>
+
 </mapper>

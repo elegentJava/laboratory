@@ -2,7 +2,8 @@ package com.bupt.ltb.sem.corre.mapper;
 
 import java.util.List;
 
-import com.bupt.ltb.sem.corre.pojo.Corre;
+import org.apache.ibatis.annotations.Param;
+
 import com.bupt.ltb.sem.corre.pojo.CorreCategory;
 
 /**
@@ -12,8 +13,14 @@ import com.bupt.ltb.sem.corre.pojo.CorreCategory;
  * @date 2017年6月19日
  */
 public interface CorreCategoryMapper {
-	//查询所有目录项
+
+	/**
+	 * 查询所有目录项
+	 * 
+	 * @return
+	 */
 	public List<CorreCategory> findAllCorreCategories();
-	//通过cc_id查询目录
-	public Corre findCorreById(int cc_id);
+
+	public List<CorreCategory> findAllCategoriesByFatherId(@Param("fatherId") Integer fatherId);
+
 }

@@ -14,6 +14,7 @@ import com.bupt.ltb.sem.corre.mapper.CorreMapper;
 import com.bupt.ltb.sem.corre.pojo.Corre;
 import com.bupt.ltb.sem.corre.pojo.CorreCategory;
 import com.bupt.ltb.sem.corre.service.CorreService;
+import com.bupt.ltb.sem.corre.util.CorreUtils;
 import com.bupt.ltb.sem.corre.util.EmailUtils;
 
 /**
@@ -27,7 +28,7 @@ public class CorreServiceImpl implements CorreService {
 
 	@Resource
 	private CorreCategoryMapper correCategoryMapper;
-	
+
 	@Resource
 	private CorreMapper correMapper;
 
@@ -35,8 +36,14 @@ public class CorreServiceImpl implements CorreService {
 	public LJSONObject loadCorreCategory(JSONObject jParams) {
 		LJSONObject result = new LJSONObject();
 		JSONObject detail = new JSONObject();
-		List<CorreCategory> correCategories = correCategoryMapper.findAllCorreCategories();
-		detail.put("correCategories", correCategories);
+		Integer fatherId = jParams.getInteger("fatherId");
+		List<CorreCategory> correCategories = null;
+		if (fatherId == null) {
+			correCategories = correCategoryMapper.findAllCorreCategories();
+		} else {
+			correCategories = correCategoryMapper.findAllCategoriesByFatherId(fatherId);
+		}
+		detail.put("categories", correCategories);
 		result.setDetail(detail);
 		result.setErrorCode(ErrorCode.SUCCESS);
 		return result;
@@ -46,8 +53,9 @@ public class CorreServiceImpl implements CorreService {
 	public LJSONObject loadCorre(JSONObject jParams) {
 		LJSONObject result = new LJSONObject();
 		JSONObject detail = new JSONObject();
-		Integer cc_id = jParams.getInteger("cc_id");
-		Corre corre=correMapper.findCorreById(cc_id);
+		Integer cc_id = jParams.getInteger("ccid");
+		Corre corre = correMapper.findCorreById(cc_id);
+		corre.setCorreEnglish(CorreUtils.generateCorrespondenceStr(corre.getCorreEnglish()));
 		detail.put("corre", corre);
 		result.setDetail(detail);
 		result.setErrorCode(ErrorCode.SUCCESS);
@@ -57,14 +65,11 @@ public class CorreServiceImpl implements CorreService {
 	@Override
 	public LJSONObject sendCorre(JSONObject jParams) {
 		LJSONObject result = new LJSONObject();
-		
-		//content  subject receiceEmail
 		String receiver = jParams.getString("receiver");
 		String subject = jParams.getString("subject");
 		String content = jParams.getString("content");
-		if(EmailUtils.sendHtmlEmail(receiver,subject,content)) {
-			result.setErrorCode(ErrorCode.SUCCESS);
-		}
+		EmailUtils.sendHtmlEmail(receiver, subject, content);
+		result.setErrorCode(ErrorCode.SUCCESS);
 		return result;
 	}
 
