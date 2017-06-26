@@ -139,7 +139,6 @@ body .container_ui input[type="checkbox"]:checked + label > .container_ui__expan
   z-index: -1;
   opacity: 1;
   -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  pointer-events: none;
 }
 body .container_ui .container_ui__expand label {
   width: 10px;

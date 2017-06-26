@@ -73,7 +73,7 @@ public class CorreController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("sendCorre")
+	@RequestMapping("sc")
 	public @ResponseBody JSONObject sendCorre(@RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
