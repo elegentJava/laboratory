@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.UserMapper" >
+
+	<resultMap type="User" id="simpleUser">
+		<id column="u_userid" property="userId"/>
+		<result column="u_name" property="name"/>
+		<result column="u_account" property="account"/>
+		<result column="u_password" property="password"/>
+		<result column="u_sex" property="sex"/>
+		<result column="u_isonline" property="isOnline"/>
+		<result column="u_email" property="email"/>
+		<result column="u_lastlogindate" property="lastLoginDate"/>
+		<result column="u_role" property="role"/>
+		<result column="u_credit" property="credit"/>
+		<result column="u_ispass" property="isPass"/>
+		<result column="u_role" property="role"/>
+	</resultMap>
+	
+	<resultMap type="User" id="userAndClass">
+		<id column="u_userid" property="userId"/>
+		<result column="u_name" property="name"/>
+		<result column="u_account" property="account"/>
+		<result column="u_sex" property="sex"/>
+		<result column="u_isonline" property="isOnline"/>
+		<result column="u_email" property="email"/>
+		<result column="u_lastlogindate" property="lastLoginDate"/>
+		<result column="u_role" property="role"/>
+		<association property="clas" javaType="Class" column="u_classid">
+			<id column="c_id" property="classId"/>
+			<result column="c_name" property="className"/>
+		</association>
+	</resultMap>
+	
+	<!-- 通过账号密码获取用户信息 -->
+	<select id="findUserByAP" parameterType="string" resultMap="simpleUser">
+		select
+		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit 
+		from vo_user
+		where u_account = #{account} and u_password = #{password}
+	</select>
+	
+	<!-- 修改用户的在线状态 -->
+	<update id="updateOnlineStatus" parameterType="int">
+		update vo_user
+		set u_isonline = #{isOnline}
+		where u_userid = #{userId}
+	</update>
+	
+	<!-- 修改用户的在线状态和登录时间 -->
+	<update id="updateStatusAndLastLoginDate" parameterType="User">
+		update vo_user
+		set u_lastlogindate = #{lastLoginDate},u_isonline = #{isOnline} 
+		where u_userid = #{userId}
+	</update>
+	
+	<!-- 查询用户和班级信息 -->
+	<select id="findUserAndClassByRole" resultMap="userAndClass">
+		select 
+		u_userid,u_account,u_name,u_sex,u_role,u_isonline,u_email,u_lastlogindate,c_id,c_name
+		from vo_user,vo_class 
+		where u_role = #{role} and u_classid = c_id
+	</select>
+	
+	<!-- 通过账号查找用户信息 -->
+	<select id="findByAccount" parameterType="string" resultType="User">
+		select u_userid
+		from vo_user
+		where u_account = #{account}
+	</select>
+	
+	<!-- 批量增加用户数据 -->
+	<insert id="batchInsert">
+		 insert into vo_user (u_account,u_password,u_sex,u_isonline,u_name,u_email,u_classid)  
+    	 values 
+	    <foreach collection="list" item="item" index="index" separator="," > 
+	        (#{item.account},#{item.password},#{item.sex},#{item.isOnline},#{item.name},#{item.email},#{item.classId}) 
+	    </foreach>
+	</insert>
+	
+</mapper>

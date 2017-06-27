@@ -37,7 +37,7 @@ public class Consts {
 	public static final String PAGE_HAVE_NEXT = "hasNextPage";
 	public static final String PAGE_SUM = "pageSum";
 	public static final String PAGE_RECORD_COUNT = "total";
-	public static final String PAGE_LABEL = "page";
+	public static final String LABEL_PAGE = "page";
 	public static final String PAGE_PER_SIZE = "perPage";
 
 }

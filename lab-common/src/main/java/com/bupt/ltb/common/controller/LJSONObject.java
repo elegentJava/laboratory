@@ -54,4 +54,14 @@ public class LJSONObject extends JSONObject {
 		return put(Consts.LABEL_DETAIL, detail);
 	}
 
+	/**
+	 * 设置分页操作结果
+	 * 
+	 * @param detail
+	 *            业务处理结果
+	 * @return
+	 */
+	public Object setPager(JSONObject pager) {
+		return put(Consts.LABEL_PAGE, pager);
+	}
 }
