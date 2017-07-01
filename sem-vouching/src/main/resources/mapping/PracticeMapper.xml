@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.PracticeMapper">
+
+	<resultMap type="Practice" id="singlePractice">
+		<id column="pt_id" property="practiceId" />
+		<result column="pt_score" property="score" />
+		<result column="pt_date" property="date"/>
+		<result column="pt_userid" property="userId" />
+		<result column="pt_chapterid" property="chapterId" />
+	</resultMap>
+
+	<resultMap type="Practice" id="PracticeAndChapter">
+		<id column="pt_id" property="practiceId" />
+		<result column="pt_score" property="score" />
+		<result column="pt_date" property="date"/>
+		<result column="pt_userid" property="userId" />
+		<association property="chapter" column="pt_chapterid" javaType="Chapter">
+			<id column="ch_id" property="chapterId" />
+			<result column="ch_name" property="name" />
+		</association>
+	</resultMap>
+
+	<!-- 通过用户查询练习记录 -->
+	<select id="findPracticesByUserId" parameterType="int" resultMap="PracticeAndChapter">
+		select
+		pt_id,pt_score,pt_date,pt_userid,pt_chapterid,ch_name
+		from vo_practice ,vo_chapter 
+		where pt_chapterid = ch_id and pt_userid = #{userId}
+	</select>
+
+	<!-- 添加一条练习记录 -->
+	<insert id="addPractice" parameterType="Practice">
+		insert into
+		vo_practice(pt_id,pt_score,pt_date,pt_userid,pt_chapterid)
+		values(#{practiceId},#{score},#{date},#{userId},#{chapterId});
+	</insert>
+
+</mapper>

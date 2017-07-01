@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.RadioMapper" >
+
+	<resultMap type="Radio" id="singleRadio">
+		<id property="radioId" column="rd_id"/>
+		<result property="question" column="rd_question"/>
+		<result property="answer" column="rd_answer"/>
+		<result property="option" column="rd_option"/>
+		<result property="level" column="rd_level"/>
+		<result property="chapterId" column="rd_chapterid"/>
+	</resultMap>
+
+	<!-- 随机查询指定数目和难度的单选题 -->
+	<select id="findRadioIdByRandom" parameterType="java.util.Map" resultMap="singleRadio">
+		select rd_id
+		from vo_radio
+		where rd_level = #{level}
+		order by rand() limit #{random}
+	</select>
+	
+	<!-- 通过ID集合查询指定单选题 -->
+	<select id="findRadiosByIds" resultType="Radio">
+		select
+		rd_radioid,rd_question,rd_option,rd_answer
+		from vo_radio
+		where rd_id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!-- 通过章节和等级查询单选题目 -->
+	<select id="findRadiosByChapterAndLevel" parameterType="java.util.Map" resultMap="singleRadio">
+		select
+		rd_id,rd_question
+		from vo_radio
+		where rd_chapterid = #{chapterId} and rd_level = #{level}
+	</select>
+	
+	<!-- 随机查询指定数目和难度以及章节的单选题 -->
+	<select id="findRadiosByRandom" parameterType="java.util.Map" resultMap="singleRadio">
+		select
+		rd_id,rd_question,rd_option,rd_answer
+		from vo_radio
+		where rd_level = #{level} and rd_chapterid = #{chapterId}
+		order by rand() limit #{random}
+	</select>
+		
+</mapper>

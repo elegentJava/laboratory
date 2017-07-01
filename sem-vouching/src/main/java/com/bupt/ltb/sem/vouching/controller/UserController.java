@@ -22,7 +22,7 @@ import com.bupt.ltb.sem.vouching.service.UserService;
  * 
  */
 @Controller("userController")
-@RequestMapping("/u")
+@RequestMapping("/user")
 public class UserController {
 
 	private Logger log = Logger.getLogger(getClass());
@@ -36,7 +36,7 @@ public class UserController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("lg")
+	@RequestMapping("login")
 	public @ResponseBody JSONObject login(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
@@ -55,7 +55,7 @@ public class UserController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("lt")
+	@RequestMapping("logout")
 	public @ResponseBody JSONObject logout(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
@@ -63,6 +63,101 @@ public class UserController {
 			detail = userService.logout(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("注销登陆失败!", e);
+			return new ResponseTemplate().getReturn();
+		}
+		return new ResponseTemplate(detail).getReturn();
+	}
+
+	/**
+	 * 重置密码
+	 * 
+	 * @param jo
+	 * @return
+	 */
+	@RequestMapping("resetPassword")
+	public @ResponseBody JSONObject resetPassword(@RequestBody JSONObject jo) {
+		LJSONObject detail = null;
+		try {
+			RequestTemplate rt = new RequestTemplate(jo);
+			detail = userService.resetPassword(rt.getJParams());
+		} catch (Exception e) {
+			log.error("重置密码失败!", e);
+			return new ResponseTemplate().getReturn();
+		}
+		return new ResponseTemplate(detail).getReturn();
+	}
+
+	/**
+	 * 装载导航栏信息
+	 * 
+	 * @param jo
+	 * @return
+	 */
+	@RequestMapping("loadNavigate")
+	public @ResponseBody JSONObject loadNavigate(@RequestBody JSONObject jo, HttpSession session) {
+		LJSONObject detail = null;
+		try {
+			RequestTemplate rt = new RequestTemplate(jo);
+			detail = userService.loadNavigate(rt.getJParams(), session);
+		} catch (Exception e) {
+			log.error("装载导航栏信息失败!", e);
+			return new ResponseTemplate().getReturn();
+		}
+		return new ResponseTemplate(detail).getReturn();
+	}
+
+	/**
+	 * 修改用户密码
+	 * 
+	 * @param jo
+	 * @return
+	 */
+	@RequestMapping("modifyPassowrd")
+	public @ResponseBody JSONObject modifyPassowrd(@RequestBody JSONObject jo, HttpSession session) {
+		LJSONObject detail = null;
+		try {
+			RequestTemplate rt = new RequestTemplate(jo);
+			detail = userService.modifyPassowrd(rt.getJParams(), session);
+		} catch (Exception e) {
+			log.error("修改用户密码失败!", e);
+			return new ResponseTemplate().getReturn();
+		}
+		return new ResponseTemplate(detail).getReturn();
+	}
+	
+	/**
+	 * 装载班级列表
+	 * 
+	 * @param jo
+	 * @return
+	 */
+	@RequestMapping("loadClassList")
+	public @ResponseBody JSONObject loadClassList(@RequestBody JSONObject jo) {
+		LJSONObject detail = null;
+		try {
+			RequestTemplate rt = new RequestTemplate(jo);
+			detail = userService.loadClassList(rt.getJParams());
+		} catch (Exception e) {
+			log.error("装载班级列表失败!", e);
+			return new ResponseTemplate().getReturn();
+		}
+		return new ResponseTemplate(detail).getReturn();
+	}
+
+	/**
+	 * 装载联系人列表
+	 * 
+	 * @param jo
+	 * @return
+	 */
+	@RequestMapping("loadUsersInClass")
+	public @ResponseBody JSONObject loadUsersInClass(@RequestBody JSONObject jo, HttpSession session) {
+		LJSONObject detail = null;
+		try {
+			RequestTemplate rt = new RequestTemplate(jo);
+			detail = userService.loadUsersInClass(rt.getJParams(), session);
+		} catch (Exception e) {
+			log.error("装载联系人列表失败!", e);
 			return new ResponseTemplate().getReturn();
 		}
 		return new ResponseTemplate(detail).getReturn();

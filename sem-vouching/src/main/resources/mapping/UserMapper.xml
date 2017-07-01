@@ -63,7 +63,7 @@
 	</select>
 	
 	<!-- 通过账号查找用户信息 -->
-	<select id="findByAccount" parameterType="string" resultType="User">
+	<select id="findByAccount" parameterType="string" resultMap="simpleUser">
 		select u_userid
 		from vo_user
 		where u_account = #{account}
@@ -77,5 +77,34 @@
 	        (#{item.account},#{item.password},#{item.sex},#{item.isOnline},#{item.name},#{item.email},#{item.classId}) 
 	    </foreach>
 	</insert>
+	
+	<!-- 修改密码 -->
+	<update id="updatePassword" parameterType="java.lang.Object">
+		update vo_user
+		set u_password = #{password}
+		where u_userid = #{userId} 
+	</update>
+	
+	<!-- 通过id和密码查找指定用户信息 -->
+	<select id="findUserByIdAndPassword" parameterType="java.lang.Object" resultMap="simpleUser">
+		select u_userid
+		from vo_user
+		where u_userid = #{userId} and u_password = #{password}
+	</select>
+	
+	<!-- 通过班级id查询用户信息 -->
+	<select id="findUsersByClassId" parameterType="int" resultMap="simpleUser">
+		select u_userid,u_name
+		from vo_user
+		where u_classid = #{classId}
+	</select>
+	
+	<!-- 通过id查找用户 -->
+	<select id="findUserById" parameterType="int" resultMap="simpleUser">
+		select 
+		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit
+		from vo_user
+		where u_userid = #{userId}
+	</select>
 	
 </mapper>

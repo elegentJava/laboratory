@@ -1,5 +1,8 @@
 package com.bupt.ltb.sem.vouching.frame;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,5 +15,11 @@ import org.springframework.stereotype.Component;
 @Component("globalContext")
 @Scope("singleton")
 public class GlobalContext {
+
+	private Map<Integer, Integer[]> currentEmailIndex = new HashMap<>();
+
+	public Map<Integer, Integer[]> getCurrentEmailIndex() {
+		return currentEmailIndex;
+	}
 
 }

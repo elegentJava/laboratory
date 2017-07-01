@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.SentenceMapper" >
+
+	<resultMap type="Sentence" id="singleSentence">
+		<id property="sentenceId" column="st_id" />
+		<result property="chinese" column="st_chinese" />
+		<result property="english" column="st_english" />
+		<result property="categoryId" column="st_categoryid" />
+		<result property="level" column="st_level" />
+		<result property="type" column="st_type" />
+	</resultMap>
+
+	<!-- 通过类别、类型、级别查询语句 -->
+	<select id="findSentencesByCTL" resultMap="singleSentence">
+		select 
+		st_id,st_chinese,st_english,st_categoryid,st_level,st_type
+		from vo_sentence
+		where st_categoryid = #{categoryId} and st_level = #{level} and st_type = #{type}
+	</select>
+	
+	<!-- 通过类别、类型查询语句 -->
+	<select id="findSentencesByCT" resultMap="singleSentence">
+		select 
+		st_id,st_chinese,st_english,st_categoryid,st_level,st_type
+		from vo_sentence
+		where st_categoryid = #{categoryId} and st_type = #{type}
+	</select>
+	
+</mapper>

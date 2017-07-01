@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.GlossaryMapper" >
+
+	<resultMap type="Glossary" id="simpleGlossary">
+		<id column="gl_id" property="glossaryId"/>
+		<result column="gl_originalword" property="originalWord"/>
+		<result column="gl_translate" property="translate"/>
+		<result column="gl_source" property="source"/>
+	</resultMap>
+	
+	
+	<!-- 查询所有词汇 -->
+	<select id="findAllGlossaries" resultMap="simpleGlossary">
+		select
+		gl_id,gl_originalword,gl_translate,gl_source
+		from vo_glossary
+	</select>
+	
+	<!-- 通过单词查询所有词汇 -->
+	<select id="findGlossariesByWord" parameterType="string" resultMap="simpleGlossary">
+		select
+		gl_id,gl_originalword,gl_translate,gl_source
+		from vo_glossary
+		where gl_originalword like CONCAT(CONCAT("%", #{word}), "%")
+	</select>
+	
+	<!-- 通过单词来源查询所有词汇 -->
+	<select id="findGlossariesBySource" resultMap="simpleGlossary">
+		select
+		gl_id,gl_originalword,gl_translate,gl_source
+		from vo_glossary
+		where gl_source in
+		<foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+            #{item}   
+    	</foreach>
+	</select>
+	
+	<!-- 通过单词来源和单词缩写查询所有词汇 -->
+	<select id="findGlossariesBySourceAndWord" parameterType="java.util.Map" resultMap="simpleGlossary">
+		select
+		gl_id,gl_originalword,gl_translate,gl_source
+		from vo_glossary
+		where gl_originalword like CONCAT(CONCAT("%", #{word}), "%") and gl_source in
+		<foreach collection="array" index="index" item="item" open="(" separator="," close=")">  
+            #{item}   
+    	</foreach>
+	</select>
+	
+</mapper>

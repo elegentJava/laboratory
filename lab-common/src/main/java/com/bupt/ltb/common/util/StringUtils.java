@@ -20,4 +20,16 @@ public class StringUtils {
 		}
 		return false;
 	}
+
+	public static boolean MultiIsNullOrBlank(String... str) {
+		if (str == null) {
+			return true;
+		}
+		for (String e : str) {
+			if (e == null || "".equals(e.trim())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

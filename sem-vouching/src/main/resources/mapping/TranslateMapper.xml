@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.TranslateMapper" >
+
+	<resultMap type="Translate" id="singleTranslate">
+		<id property="translateId" column="tl_id"/>
+		<result property="question" column="tl_question"/>
+		<result property="answer" column="tl_answer"/>
+		<result property="level" column="tl_level"/>
+		<result property="chapterId" column="tl_chapterid"/>
+	</resultMap>
+
+	<!-- 随机查询指定数目和难度的填空题 -->
+	<select id="findTranslateIdByRandom" parameterType="java.util.Map" resultMap="singleTranslate">
+		select tl_id
+		from vo_translate
+		where tl_level = #{level}
+		order by rand() limit #{random}
+	</select>
+	
+	<!-- 通过ID集合查询指定填空题 -->
+	<select id="findTranslatesByIds" resultType="Translate">
+		select
+		tl_translateid,tl_question,tl_answer
+		from vo_translate
+		where tl_id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!-- 通过章节和等级查询填空题目 -->
+	<select id="findTranslatesByChapterAndLevel" parameterType="java.util.Map" resultMap="singleTranslate">
+		select
+		tl_id,tl_question
+		from vo_translate
+		where tl_chapterid = #{chapterId} and tl_level = #{level}
+	</select>
+	
+	<!-- 随机查询指定数目和难度以及章节的填空题 -->
+	<select id="findTranslatesByRandom" parameterType="java.util.Map" resultMap="singleTranslate">
+		select
+		tl_id,tl_question,tl_answer
+		from vo_translate
+		where tl_level = #{level} and tl_chapterid = #{chapterId}
+		order by rand() limit #{random}
+	</select>
+		
+</mapper>

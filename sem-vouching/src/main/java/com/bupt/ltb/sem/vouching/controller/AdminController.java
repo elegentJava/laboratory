@@ -2,7 +2,6 @@ package com.bupt.ltb.sem.vouching.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -58,7 +57,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("biu")
-	public @ResponseBody JSONObject batchInsertUsers(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody JSONObject batchInsertUsers(HttpServletRequest request) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(request);

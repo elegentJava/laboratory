@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.BlankMapper" >
+
+	<resultMap type="Blank" id="singleBlank">
+		<id property="blankId" column="bk_id"/>
+		<result property="question" column="bk_question"/>
+		<result property="answer" column="bk_answer"/>
+		<result property="level" column="bk_level"/>
+		<result property="chapterId" column="bk_chapterid"/>
+	</resultMap>
+
+	<!-- 随机查询指定数目和难度的填空题 -->
+	<select id="findBlankIdByRandom" parameterType="java.util.Map" resultMap="singleBlank">
+		select bk_id
+		from vo_blank
+		where bk_level = #{level}
+		order by rand() limit #{random}
+	</select>
+	
+	<!-- 通过ID集合查询指定填空题 -->
+	<select id="findBlanksByIds" resultType="Blank">
+		select
+		bk_blankid,bk_question,bk_answer
+		from vo_blank
+		where bk_id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!-- 通过章节和等级查询填空题目 -->
+	<select id="findBlanksByChapterAndLevel" parameterType="java.util.Map" resultMap="singleBlank">
+		select
+		bk_id,bk_question
+		from vo_blank
+		where bk_chapterid = #{chapterId} and bk_level = #{level}
+	</select>
+	
+	<!-- 随机查询指定数目和难度以及章节的填空题 -->
+	<select id="findBlanksByRandom" parameterType="java.util.Map" resultMap="singleBlank">
+		select
+		bk_id,bk_question,bk_answer
+		from vo_blank
+		where bk_level = #{level} and bk_chapterid = #{chapterId}
+		order by rand() limit #{random}
+	</select>
+		
+</mapper>

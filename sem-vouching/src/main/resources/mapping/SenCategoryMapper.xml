@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.SenCategoryMapper">
+
+	<resultMap type="SenCategory" id="singleSenCategory">
+		<id property="scid" column="sc_id" />
+		<result property="fatherId" column="sc_fatherid" />
+		<result property="name" column="sc_name" />
+		<result property="flag" column="sc_flag" />
+	</resultMap>
+
+	<!-- 查找所有语句类型 -->
+	<select id="findAllCategories" resultMap="singleSenCategory">
+		select
+		sc_id,sc_fatherid,sc_name,sc_flag
+		from vo_sencategory
+	</select>
+
+</mapper>

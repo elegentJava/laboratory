@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.PhraseMapper" >
+
+	<resultMap type="Phrase" id="singlePhrase">
+		<id property="phraseId" column="ph_id"/>
+		<result property="question" column="ph_question"/>
+		<result property="answer" column="ph_answer"/>
+		<result property="level" column="ph_level"/>
+		<result property="chapterId" column="ph_chapterid"/>
+	</resultMap>
+
+	<!-- 随机查询指定数目和难度的填空题 -->
+	<select id="findPhraseIdByRandom" parameterType="java.util.Map" resultMap="singlePhrase">
+		select ph_id
+		from vo_phrase
+		where ph_level = #{level}
+		order by rand() limit #{random}
+	</select>
+	
+	<!-- 通过ID集合查询指定填空题 -->
+	<select id="findPhrasesByIds" resultType="Phrase">
+		select
+		ph_phraseid,ph_question,ph_answer
+		from vo_phrase
+		where ph_id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<!-- 通过章节和等级查询填空题目 -->
+	<select id="findPhrasesByChapterAndLevel" parameterType="java.util.Map" resultMap="singlePhrase">
+		select
+		ph_id,ph_question
+		from vo_phrase
+		where ph_chapterid = #{chapterId} and ph_level = #{level}
+	</select>
+	
+	<!-- 随机查询指定数目和难度以及章节的填空题 -->
+	<select id="findPhrasesByRandom" parameterType="java.util.Map" resultMap="singlePhrase">
+		select
+		ph_id,ph_question,ph_answer
+		from vo_phrase
+		where ph_level = #{level} and ph_chapterid = #{chapterId}
+		order by rand() limit #{random}
+	</select>
+		
+</mapper>

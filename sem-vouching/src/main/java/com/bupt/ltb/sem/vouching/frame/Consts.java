@@ -47,5 +47,31 @@ public class Consts {
 	 * 默认的班级ID(创建用户没有选择班级)
 	 */
 	public static final Integer DEFAULT_CLASS_ID = 1;
+	public static final String COMMON_SEPARATOR = ";";
+	public static final Integer ACTIVE = 1;
+	/**
+	 * 邮件类型--发件箱
+	 */
+	public static final Integer EMAIL_TYPE_SEND = 0;
+	/**
+	 * 邮件类型--收件箱
+	 */
+	public static final Integer EMAIL_TYPE_RECEIVE = 1;
+	/**
+	 * 邮件未读
+	 */
+	public static final Integer EMAIL_UNREAD = 0;
+	/**
+	 * 邮件已读
+	 */
+	public static final Integer EMAIL_READ = 1;
+	/**
+	 * 邮件没有删除
+	 */
+	public static final Integer EMAIL_NOT_DELETE = 0;
+	/**
+	 * 邮件已经删除
+	 */
+	public static final Integer EMAIL_IS_DELETE = 1;
 
 }

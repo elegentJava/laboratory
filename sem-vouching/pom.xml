@@ -124,6 +124,8 @@
 				<configuration>
 					<port>8080</port>
 					<path>/vouching</path>
+					<uriEncoding>UTF-8</uriEncoding>
+					<charset>UTF-8</charset>
 				</configuration>
 			</plugin>
 		</plugins>

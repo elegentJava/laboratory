@@ -29,4 +29,46 @@ public interface UserService {
 	 */
 	public LJSONObject logout(JSONObject jParams, HttpSession session);
 
+	/**
+	 * 重置密码
+	 * 
+	 * @param jParams
+	 * @return
+	 */
+	public LJSONObject resetPassword(JSONObject jParams);
+
+	/**
+	 * 装载导航栏信息
+	 * 
+	 * @param jParams
+	 * @param session
+	 * @return
+	 */
+	public LJSONObject loadNavigate(JSONObject jParams, HttpSession session);
+
+	/**
+	 * 修改用户密码
+	 * 
+	 * @param jParams
+	 * @param session
+	 * @return
+	 */
+	public LJSONObject modifyPassowrd(JSONObject jParams, HttpSession session);
+
+	/**
+	 * 装载班级列表
+	 * 
+	 * @param jParams
+	 * @return
+	 */
+	public LJSONObject loadClassList(JSONObject jParams);
+
+	/**
+	 * 
+	 * @param jParams
+	 * @param session
+	 * @return
+	 */
+	public LJSONObject loadUsersInClass(JSONObject jParams, HttpSession session);
+
 }

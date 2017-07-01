@@ -61,4 +61,38 @@ public interface UserMapper {
 	 */
 	public Integer batchInsert(List<User> users);
 
+	/**
+	 * 重置密码
+	 * 
+	 * @param userId
+	 * @param defaultPassword
+	 * @return
+	 */
+	public Integer updatePassword(@Param("userId") Integer userId, @Param("password") String password);
+
+	/**
+	 * 通过id和密码查找指定用户信息
+	 * 
+	 * @param userId
+	 * @param password
+	 * @return
+	 */
+	public User findUserByIdAndPassword(@Param("userId") Integer userId, @Param("password") String password);
+
+	/**
+	 * 通过班级id查询用户信息
+	 * 
+	 * @param classId
+	 * @return
+	 */
+	public List<User> findUsersByClassId(@Param("classId") Integer classId);
+
+	/**
+	 * 通过id查询用户信息
+	 * 
+	 * @param parseInt
+	 * @return
+	 */
+	public User findUserById(@Param("userId") Integer userId);
+
 }

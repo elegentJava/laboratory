@@ -21,27 +21,25 @@ $(function(){
 	//批量导入
 	$("#batchInsert").unbind("click");
 	$("#batchInsert").bind("click",function(){
-		if($("#userFile").click()){
+		var file = $("#userFile").click();
+		$("#userFile").bind("change",function(){
 			$.ajaxFileUpload({
-	            url:'/vouching/ad/biu',
-	            secureuri:false,                       
-	            fileElementId : "userFile",
-	            data : {
-	            	role : 1
-	            },
-	            dataType:'json',                       
-	            success:function(data, status){        
-	            	if (data.result == "success") {
-						layer.msg("批量添加成功!");
-					} else {
-						layer.alert(data.errorCode, {icon: 5,});
-					}
-	            },
-	            error:function(data, status, e){ 
-	            	layer.alert(data.errorCode, {icon: 5,});
-	            }
-	        });
-		}
+                url: '/vouching/ad/biu', 
+                type: 'post',
+                data : {
+                    role : 1
+                },
+                secureuri: false, //一般设置为false
+                fileElementId: 'userFile', // 上传文件的id、name属性名
+                dataType: 'JSON', //返回值类型，一般设置为json、application/json  这里要用大写  不然会取不到返回的数据
+                success: function(data, status){  
+                    alert(data);
+                },
+                error: function(data, status, e){ 
+                    alert(e);
+                }
+            });
+		});
 	});
 	
 });
@@ -102,15 +100,14 @@ function resetPassword(){
 	$("button[name='resetPassword']").unbind("click");
 	$("button[name='resetPassword']").bind("click",function(){
 		var userId = $(this).attr("userId");
-		var url = "/vouching/admin/resetPassword";
+		var url = "/vouching/u/rp";
 		var data = {
-		    token : $("#token").val(),
 		    userId : userId
 		};
 		var successCallback = function(data){
 			layer.msg("重置成功!");
 		};
-		Utils.common.ajax.commonAjax(url, false, data, successCallback, null);
+		Utils.common.ajax.commonAjax(url, false, data, successCallback);
 	});
 }
 
