@@ -1,14 +1,13 @@
+var chapter_id;
+
 $(function(){
 	
 	//初始化装载页面
-	var url = "/vouching/practice/loadStartTest";
-	var data = {
-		token : $("#token").val()
-	};
+	var url = "/vouching/practice/loadStartPracticeInfo";
 	var successCallback = function(data){
 		var questions = data.detail.questions;
 		var chapterId = data.detail.chapterId;
-		$("#chapterIdHidden").attr("value",chapterId);
+		chapter_id = chapterId;
 		if(questions != null){
 			$("#title").text(questions[0].tagName);
 			if(questions[0].tag == "radio"){
@@ -38,7 +37,7 @@ $(function(){
 		$("#questionList").append("<tr><td colspan='2' style='border: 1px dashed #ccc;border-bottom: none;color:red'><h2>"+data.errorCode+"</h2></td></tr>");
 		$("#showAnswer").hide();
 	}
-	VCUtils.common.ajax.commonAjax(url, false, data, successCallback, faildCallback, null);
+	Utils.common.ajax.commonAjax(url, false, null, successCallback, faildCallback);
 	
 	//查看答案并计分
 	$("#showAnswer").bind("click",function(){
@@ -54,9 +53,8 @@ $(function(){
 		}
 		var url = "/vouching/practice/showAnswerAndScore";
 		var data = {
-			token : $("#token").val(),
 			answers : answers,
-			chapterId : $("#chapterIdHidden").attr("value")
+			chapterId : chapter_id
 		};
 		var successCallback = function(data){
 			var answers = data.detail.answers;
@@ -69,7 +67,7 @@ $(function(){
 			$("#showAnswer").attr("value","最后得分为："+score+"分");
 			$("#showAnswer").attr("disabled",true);
 		};
-		VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null, null);
+		Utils.common.ajax.commonAjax(url, false, data, successCallback);
 	});
 	
 });

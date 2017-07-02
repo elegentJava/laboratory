@@ -49,6 +49,7 @@ public class Consts {
 	public static final Integer DEFAULT_CLASS_ID = 1;
 	public static final String COMMON_SEPARATOR = ";";
 	public static final Integer ACTIVE = 1;
+	public static final Integer INACTIVE = 0;
 	/**
 	 * 邮件类型--发件箱
 	 */
@@ -73,5 +74,8 @@ public class Consts {
 	 * 邮件已经删除
 	 */
 	public static final Integer EMAIL_IS_DELETE = 1;
+	public static final String ANSWER_NULL = "&|&";
+	public static final Integer EXAM_JOINED = 1;
+	public static final Integer USER_PAPER_DONE = 1;
 
 }

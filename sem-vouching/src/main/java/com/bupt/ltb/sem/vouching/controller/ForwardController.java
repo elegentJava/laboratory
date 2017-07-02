@@ -105,36 +105,42 @@ public class ForwardController {
 	/*
 	 * Exam目录下
 	 */
-	public static final String PATH_AUTO = "/auto";
+	public static final String PATH_AUTO = "/exam_auto";
 	public String auto = PATH_AUTO;
 
-	public static final String PATH_CHAPTER = "/chapter";
+	public static final String PATH_CHAPTER = "/exam_chapter";
 	public String chapter = PATH_CHAPTER;
 
-	public static final String PATH_MANUAL = "/manual";
+	public static final String PATH_MANUAL = "/exam_manual";
 	public String manual = PATH_MANUAL;
 
-	public static final String PATH_PREVIEW = "/preview";
+	public static final String PATH_PREVIEW = "/exam_preview";
 	public String preview = PATH_PREVIEW;
 
-	public static final String PATH_JOIN_EXAM = "/joinexam";
+	public static final String PATH_JOIN_EXAM = "/exam_join";
 	public String joinExam = PATH_JOIN_EXAM;
 
-	public static final String PATH_START_EXAM = "/startExam";
+	public static final String PATH_START_EXAM = "/exam_start";
 	public String startExam = PATH_START_EXAM;
 
-	public static final String PATH_EXAM_RECORD = "/examrecord";
+	public static final String PATH_EXAM_RECORD = "/exam_record";
 	public String examRecord = PATH_EXAM_RECORD;
 
-	public static final String PATH_MARK_PAPER = "/markpaper";
+	public static final String PATH_MARK_PAPER = "/exam_mark_paper";
 	public String markPaper = PATH_MARK_PAPER;
 
-	public static final String PATH_MARK_DETAIL = "/markdetail";
+	public static final String PATH_MARK_DETAIL = "/exam_mark_detail";
 	public String markDetail = PATH_MARK_DETAIL;
 
-	public static final String PATH_EXAM_GRADE = "/examgrade";
+	public static final String PATH_EXAM_GRADE = "/exam_grade";
 	public String examGrade = PATH_EXAM_GRADE;
+	
+	public static final String PATH_EXAM_SETTING = "/exam_setting";
+	public String examSetting = PATH_EXAM_SETTING;
 
+	public static final String PATH_EXAM_STUDENT_SCORE = "/exam_student_score";
+	public String examStudentScore = PATH_EXAM_STUDENT_SCORE;
+	
 	/*
 	 * practice目录下
 	 */
@@ -163,9 +169,6 @@ public class ForwardController {
 	public String sentence = PATH_SENTENCE;
 
 	//////////////////////////// 第四级目录////////////////////////////
-
-	public static final String PATH_EXAM_SETTING = "/examsetting";
-	public String examSetting = PATH_EXAM_SETTING;
 
 	public static final String PATH_UPLOAD = "/upload";
 	public String upload = PATH_UPLOAD;
@@ -218,8 +221,7 @@ public class ForwardController {
 	 * @return
 	 */
 	@RequestMapping("forwardFrontIndex")
-	public String forwardFrontIndex(HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String forwardFrontIndex(HttpSession session, HttpServletRequest request) {
 		User user = (User) session.getAttribute(Consts.SESSION_USER);
 		request.setAttribute("detail", user);
 		return formFrontResult(index);
@@ -232,8 +234,7 @@ public class ForwardController {
 	 * @return
 	 */
 	@RequestMapping("forwardFrontMain")
-	public String forwardFrontMain(HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	public String forwardFrontMain(HttpSession session, HttpServletRequest request) {
 		User user = (User) session.getAttribute(Consts.SESSION_USER);
 		request.setAttribute("detail", user);
 		return formFrontResult(main);
@@ -318,20 +319,21 @@ public class ForwardController {
 	 * @return
 	 */
 	@RequestMapping("forwardEmailDetail")
-	public String forwardEmailDetail(Integer type, Integer emailId, HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute(Consts.SESSION_USER);
+	public String forwardEmailDetail(HttpSession session, Integer type, Integer emailId) {
+		User user = (User) session.getAttribute(Consts.SESSION_USER);
 		globalContext.getCurrentEmailIndex().put(user.getUserId(), new Integer[] { emailId, type });
 		return formFrontResult(email, emailDetail);
 	}
 
 	////////////////////////////// 练习平台模块相关//////////////////////////////
+
 	/**
 	 * 跳转到练习选题页面
 	 * 
 	 * @return
 	 */
 	@RequestMapping("forwardPracticeSelect")
-	public String forwardTestSelect() {
+	public String forwardPracticeSelect() {
 		return formFrontResult(practice, practiceSelect);
 	}
 
@@ -341,7 +343,7 @@ public class ForwardController {
 	 * @return
 	 */
 	@RequestMapping("forwardStartPractice")
-	public String forwardStartTest() {
+	public String forwardStartPractice() {
 		return formFrontResult(practice, practiceStart);
 	}
 
@@ -354,6 +356,144 @@ public class ForwardController {
 	public String forwardShowRecord() {
 		return formFrontResult(practice, practiceRecord);
 	}
+
+	////////////////////////////// 考试平台模块相关//////////////////////////////
+
+	/**
+	 * 跳转到手工组卷页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardManual")
+	public String forwardManual() {
+		return formFrontResult(exam, manual);
+	}
+
+	/**
+	 * 跳转到手工组卷结果页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardAuto")
+	public String forwardAuto() {
+		return formFrontResult(exam, auto);
+	}
+
+	/**
+	 * 跳转到章节设置页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardChapter")
+	public String forwardChapter() {
+		return formFrontResult(exam, chapter);
+	}
+
+	/**
+	 * 跳转到考试设置页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardExamSetting")
+	public String forwardExamSetting() {
+		return formFrontResult(exam, examSetting);
+	}
+
+	/**
+	 * 跳转到考试设置页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardJoinExam")
+	public String forwardJoinExam() {
+		return formFrontResult(exam, joinExam);
+	}
+
+	/**
+	 * 跳转到考试设置页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardStartExam")
+	public String forwardStartExam() {
+		return formFrontResult(exam, startExam);
+	}
+
+	/**
+	 * 跳转到成绩记录页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardExamRecord")
+	public String forwardExamRecord() {
+		return formFrontResult(exam, examRecord);
+	}
+
+	/**
+	 * 跳转到批改试卷页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardMarkPaper")
+	public String forwardMarkPaper() {
+		return formFrontResult(exam, markPaper);
+	}
+
+	/**
+	 * 跳转到批改试卷详情页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardMarkDetail")
+	public String forwardMarkDetail(String token, String userPaperId, HttpServletRequest request) {
+		request.setAttribute("userPaperId", userPaperId);
+		return formFrontResult(exam, markDetail);
+	}
+
+	/**
+	 * 跳转到试卷预览页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardPreview")
+	public String forwardPreview(String examId, HttpServletRequest request) {
+		request.setAttribute("examId", examId);
+		return formFrontResult(exam, preview);
+	}
+	
+	/**
+	 * 跳转到学生成绩页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardExamStudentScore")
+	public String forwardExamStudentScore() {
+		return formFrontResult(exam, examStudentScore);
+	}
+	
+	
 	
 	
 	

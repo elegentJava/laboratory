@@ -37,7 +37,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("login")
-	public @ResponseBody JSONObject login(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject login(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -56,7 +56,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("logout")
-	public @ResponseBody JSONObject logout(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject logout(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -75,7 +75,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("resetPassword")
-	public @ResponseBody JSONObject resetPassword(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject resetPassword(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -94,7 +94,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("loadNavigate")
-	public @ResponseBody JSONObject loadNavigate(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject loadNavigate(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -113,7 +113,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("modifyPassowrd")
-	public @ResponseBody JSONObject modifyPassowrd(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject modifyPassowrd(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -132,7 +132,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("loadClassList")
-	public @ResponseBody JSONObject loadClassList(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadClassList(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -151,7 +151,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("loadUsersInClass")
-	public @ResponseBody JSONObject loadUsersInClass(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject loadUsersInClass(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);

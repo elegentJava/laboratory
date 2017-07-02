@@ -12,10 +12,9 @@ $(function(){
  */
 function loadQueryResult(pageNum){
 	var loading = layer.load();
-	var url = "/vouching/practice/loadTestRecord";
+	var url = "/vouching/practice/loadPracticeRecord";
 	var data = {
 		pageNum : pageNum,
-		token : $("#token").val()
 	};
 	var successCallback = function(data){
 		var records = data.detail.records;
@@ -29,11 +28,11 @@ function loadQueryResult(pageNum){
 				tr.append("<td align='center'>"+eval(records[i]).formatDate+"</td>");
 				tr.append("<td align='center'>"+eval(records[i]).score+"</td>");
 			}
-			VCUtils.common.pager.front.loadPage(data);
+			Utils.common.pager.front.loadPage(data);
 			$("#pager").show();
 		} 
-		VCUtils.common.pager.front.registerEvent(loadQueryResult);
+		Utils.common.pager.front.registerEvent(loadQueryResult);
 		layer.close(loading);
 	};
-	VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null, loading);
+	Utils.common.ajax.commonAjax(url, false, data, successCallback, null, loading);
 }

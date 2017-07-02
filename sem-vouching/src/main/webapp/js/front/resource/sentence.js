@@ -5,7 +5,7 @@ $(function(){
 	$("#pager").hide();
 	
 	//加载语句类型树
-	var url = "/vouching/resouece/loadSentenceCategoryTree";
+	var url = "/vouching/resource/loadSentenceCategoryTree";
 	var successCallback = function(data) {
 		var categories = data.detail.categories;
 		tree.add(0, -1, "语句查询系统", "");

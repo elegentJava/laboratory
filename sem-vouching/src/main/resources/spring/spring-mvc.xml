@@ -16,15 +16,6 @@ http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<context:component-scan base-package="com.bupt.ltb.sem.vouching.controller" />
 	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/*/*"/>
-			<mvc:exclude-mapping path="/*/f/ffl"/>
-			<mvc:exclude-mapping path="/*/f/fbl"/>
-			<bean class="com.bupt.ltb.sem.vouching.frame.PrivilegeInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
-
 	<!-- 利用fastjson进行json与对象转换 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="false">

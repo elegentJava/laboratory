@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<!-- 随机查询指定数目和难度的填空题 -->
-	<select id="findClozeIdByRandom" parameterType="java.util.Map" resultMap="singleCloze">
+	<select id="findClozeIdByRandom" parameterType="java.util.Map" resultType="int">
 		select ce_id
 		from vo_cloze
 		where ce_level = #{level}
@@ -19,9 +19,9 @@
 	</select>
 	
 	<!-- 通过ID集合查询指定填空题 -->
-	<select id="findClozesByIds" resultType="Cloze">
+	<select id="findClozesByIds" resultMap="singleCloze">
 		select
-		ce_clozeid,ce_question,ce_answer
+		ce_id,ce_question,ce_answer
 		from vo_cloze
 		where ce_id in
 		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">

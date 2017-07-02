@@ -1,6 +1,7 @@
 package com.bupt.ltb.sem.vouching.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping("loadGlossarySource")
-	public @ResponseBody JSONObject loadGlossarySource(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadGlossarySource(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -56,7 +57,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping("queryGlossary")
-	public @ResponseBody JSONObject queryGlossary(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject queryGlossary(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -76,7 +77,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping("loadSentenceCategoryTree")
-	public @ResponseBody JSONObject loadSentenceCategoryTree(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadSentenceCategoryTree(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -95,7 +96,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping("loadSentenceLevelAndType")
-	public @ResponseBody JSONObject loadSentenceLevelAndType(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadSentenceLevelAndType(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -114,7 +115,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping("querySentence")
-	public @ResponseBody JSONObject querySentence(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject querySentence(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);

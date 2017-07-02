@@ -12,7 +12,7 @@
 	</resultMap>
 
 	<!-- 随机查询指定数目和难度的单选题 -->
-	<select id="findRadioIdByRandom" parameterType="java.util.Map" resultMap="singleRadio">
+	<select id="findRadioIdByRandom" parameterType="java.util.Map" resultType="int">
 		select rd_id
 		from vo_radio
 		where rd_level = #{level}
@@ -20,9 +20,9 @@
 	</select>
 	
 	<!-- 通过ID集合查询指定单选题 -->
-	<select id="findRadiosByIds" resultType="Radio">
+	<select id="findRadiosByIds" resultMap="singleRadio">
 		select
-		rd_radioid,rd_question,rd_option,rd_answer
+		rd_id,rd_question,rd_option,rd_answer
 		from vo_radio
 		where rd_id in
 		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">

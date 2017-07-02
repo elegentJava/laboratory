@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<!-- 随机查询指定数目和难度的填空题 -->
-	<select id="findPhraseIdByRandom" parameterType="java.util.Map" resultMap="singlePhrase">
+	<select id="findPhraseIdByRandom" parameterType="java.util.Map" resultType="int">
 		select ph_id
 		from vo_phrase
 		where ph_level = #{level}
@@ -19,9 +19,9 @@
 	</select>
 	
 	<!-- 通过ID集合查询指定填空题 -->
-	<select id="findPhrasesByIds" resultType="Phrase">
+	<select id="findPhrasesByIds" resultMap="singlePhrase">
 		select
-		ph_phraseid,ph_question,ph_answer
+		ph_id,ph_question,ph_answer
 		from vo_phrase
 		where ph_id in
 		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">

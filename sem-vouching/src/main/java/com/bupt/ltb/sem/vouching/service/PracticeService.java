@@ -27,7 +27,7 @@ public interface PracticeService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject generatePracticePaper(JSONObject jParams);
+	public LJSONObject generatePracticePaper(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 装载开始考试页面
@@ -35,7 +35,7 @@ public interface PracticeService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject loadStartTest(JSONObject jParams);
+	public LJSONObject loadStartPracticeInfo(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 装载练习记录
@@ -43,14 +43,15 @@ public interface PracticeService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject loadTestRecord(JSONObject jParams, HttpSession session);
+	public LJSONObject loadPracticeRecord(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 展示答案和分数
 	 * 
 	 * @param jParams
+	 * @param session 
 	 * @return
 	 */
-	public LJSONObject showAnswerAndScore(JSONObject jParams);
+	public LJSONObject showAnswerAndScore(JSONObject jParams, HttpSession session);
 
 }

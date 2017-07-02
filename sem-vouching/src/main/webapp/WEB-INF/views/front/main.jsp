@@ -40,7 +40,7 @@
 						</thead>
 						<tbody id="emailList"></tbody>
 						<tfoot id="more">
-							<tr class="teatbbai" align="right"><td colspan="4"><a href="/vouching/forward/forwardEmailStation?token=${token}">更多站内信</a></td></tr>
+							<tr class="teatbbai" align="right"><td colspan="4"><a href="/vouching/forward/forwardEmailStation">更多站内信</a></td></tr>
 						</tfoot>
 					</table>
 				</div>

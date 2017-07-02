@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 		LJSONObject result = new LJSONObject();
 		JSONObject detail = new JSONObject();
 		User user = (User) session.getAttribute(Consts.SESSION_USER);
-		int unreadCount = emailMapper.findReceiveUnreadEmails(user.getUserId()).size();
+		Integer unreadCount = emailMapper.findUnreadReceiveEmailCount(user.getUserId());
 		detail.put("unreadCount", unreadCount);
 		if (Consts.ROLE_STUDENT == user.getRole()) {
 			detail.put("credit", user.getCredit());

@@ -35,7 +35,7 @@
 	<!-- 通过账号密码获取用户信息 -->
 	<select id="findUserByAP" parameterType="string" resultMap="simpleUser">
 		select
-		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit 
+		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit,u_classid 
 		from vo_user
 		where u_account = #{account} and u_password = #{password}
 	</select>
@@ -94,7 +94,7 @@
 	
 	<!-- 通过班级id查询用户信息 -->
 	<select id="findUsersByClassId" parameterType="int" resultMap="simpleUser">
-		select u_userid,u_name
+		select u_userid,u_name,u_email
 		from vo_user
 		where u_classid = #{classId}
 	</select>

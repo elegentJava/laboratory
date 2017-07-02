@@ -4,7 +4,7 @@ $(function(){
 	$("#pager").hide();
 	
 	//装载词汇来源类型
-	var url = "/vouching/resouece/loadGlossarySource";
+	var url = "/vouching/resource/loadGlossarySource";
 	var successCallback = function(data){
 		var glossarySources = data.detail.glossarySources;
 		for (var i = 0; i < glossarySources.length; i++) {

@@ -15,5 +15,9 @@ public class PageSize {
 	public static final int SENTENCE_RESULT = 10;
 	public static final int TEST_RECORD = 10;
 	public static final int EMAIL_BOX_RECORD = 10;
+	public static final int MANUAL_QUESTION_RESULT = 5;
+	public static final int EXAM_SETTING_RESULT = 7;
+	public static final int JOIN_EXAM_RECORD = 6;
+	public static final int EXAM_GRADE_RECORD = 10;
 
 }

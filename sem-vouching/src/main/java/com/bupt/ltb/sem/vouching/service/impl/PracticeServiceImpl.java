@@ -1,6 +1,7 @@
 package com.bupt.ltb.sem.vouching.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bupt.ltb.common.controller.LJSONObject;
 import com.bupt.ltb.common.type.ErrorCode;
 import com.bupt.ltb.sem.vouching.frame.Consts;
+import com.bupt.ltb.sem.vouching.frame.GlobalContext;
 import com.bupt.ltb.sem.vouching.frame.PageSize;
 import com.bupt.ltb.sem.vouching.frame.Question;
 import com.bupt.ltb.sem.vouching.mapper.BlankMapper;
@@ -25,9 +27,11 @@ import com.bupt.ltb.sem.vouching.mapper.RadioMapper;
 import com.bupt.ltb.sem.vouching.mapper.TranslateMapper;
 import com.bupt.ltb.sem.vouching.pojo.Chapter;
 import com.bupt.ltb.sem.vouching.pojo.Practice;
+import com.bupt.ltb.sem.vouching.pojo.Radio;
 import com.bupt.ltb.sem.vouching.pojo.User;
 import com.bupt.ltb.sem.vouching.service.PracticeService;
 import com.bupt.ltb.sem.vouching.type.LevelType;
+import com.bupt.ltb.sem.vouching.type.OptionType;
 import com.bupt.ltb.sem.vouching.type.QuestionCategory;
 import com.bupt.ltb.sem.vouching.type.error.ExamError;
 import com.bupt.ltb.sem.vouching.type.error.PracticeError;
@@ -65,6 +69,9 @@ public class PracticeServiceImpl implements PracticeService {
 	@Resource
 	private PracticeMapper practiceMapper;
 
+	@Resource
+	private GlobalContext globalContext;
+
 	@Override
 	public LJSONObject loadPracticeSelectInfo(JSONObject jParams) {
 		LJSONObject result = new LJSONObject();
@@ -87,7 +94,7 @@ public class PracticeServiceImpl implements PracticeService {
 	}
 
 	@Override
-	public LJSONObject generatePracticePaper(JSONObject jParams) {
+	public LJSONObject generatePracticePaper(JSONObject jParams, HttpSession session) {
 		LJSONObject result = new LJSONObject();
 		Integer chapterId = jParams.getInteger("chapterId");
 		Integer categoryId = jParams.getInteger("categoryId");
@@ -119,18 +126,19 @@ public class PracticeServiceImpl implements PracticeService {
 				result.setErrorCode(ExamError.QUESTION_CATEGORY_INVALID);
 				return result;
 			}
+			User user = (User) session.getAttribute(Consts.SESSION_USER);
+			globalContext.getCurrentPracticePaper().put(user.getUserId(), questions);
 			result.setErrorCode(ErrorCode.SUCCESS);
 		}
 		return result;
 	}
 
 	@Override
-	public LJSONObject loadStartTest(JSONObject jParams) {
+	public LJSONObject loadStartPracticeInfo(JSONObject jParams, HttpSession session) {
 		LJSONObject result = new LJSONObject();
 		JSONObject detail = new JSONObject();
-		String token = jParams.getString("token");
-		Map<String, List<? extends Question>> currentPractice = null;
-		List<? extends Question> questions = currentPractice.get(token);
+		User user = (User) session.getAttribute(Consts.SESSION_USER);
+		List<? extends Question> questions = globalContext.getCurrentPracticePaper().get(user.getUserId());
 		if (questions != null && questions.size() > 0) {
 			detail.put("questions", questions);
 			detail.put("chapterId", questions.get(0).getChapterId());
@@ -143,10 +151,9 @@ public class PracticeServiceImpl implements PracticeService {
 	}
 
 	@Override
-	public LJSONObject loadTestRecord(JSONObject jParams, HttpSession session) {
+	public LJSONObject loadPracticeRecord(JSONObject jParams, HttpSession session) {
 		LJSONObject result = new LJSONObject();
 		JSONObject detail = new JSONObject();
-		String token = jParams.getString("token");
 		Integer pageNum = jParams.getInteger("pageNum");
 		PageHelper.startPage(pageNum, PageSize.TEST_RECORD);
 		User user = (User) session.getAttribute(Consts.SESSION_USER);
@@ -160,21 +167,21 @@ public class PracticeServiceImpl implements PracticeService {
 	}
 
 	@Override
-	public LJSONObject showAnswerAndScore(JSONObject jParams) {
+	public LJSONObject showAnswerAndScore(JSONObject jParams, HttpSession session) {
 		LJSONObject result = new LJSONObject();
-		/*JSONObject detail = new JSONObject();
+		JSONObject detail = new JSONObject();
+		User user = (User) session.getAttribute(Consts.SESSION_USER);
 		String[] answers = jParams.getObject("answers", String[].class);
 		Integer chapterId = jParams.getInteger("chapterId");
 		Integer score = 0;
 		Integer count = 0;
 		String[] answer = new String[5];
 		if (answers != null) {
-			List<? extends Question> questions = globalContext.getCurrentPractice().get(token);
+			List<? extends Question> questions = globalContext.getCurrentPracticePaper().get(user.getUserId());
 			for (Question question : questions) {
 				if (answers[count] != null) {
 					if (question instanceof Radio) {
-						if (OptionType.byId(Integer.parseInt(answers[count])).getDescription()
-								.equals(question.getAnswer())) {
+						if (OptionType.byId(Integer.parseInt(answers[count])).getDescription().equals(question.getAnswer())) {
 							score++;
 						}
 					} else {
@@ -190,7 +197,7 @@ public class PracticeServiceImpl implements PracticeService {
 			practice.setChapterId(chapterId);
 			practice.setDate(new Date());
 			practice.setScore(score);
-			practice.setUserId(globalContext.getUserToken().get(token).getUserId());
+			practice.setUserId(user.getUserId());
 			if (practiceMapper.addPractice(practice) == Consts.DATA_SINGLE_SUCCESS) {
 				detail.put("answers", answer);
 				detail.put("score", score);
@@ -201,7 +208,8 @@ public class PracticeServiceImpl implements PracticeService {
 			}
 		} else {
 			result.setErrorCode(ErrorCode.PARAM_ABNORMAL);
-		}*/
+		}
+		 
 		return result;
 	}
 

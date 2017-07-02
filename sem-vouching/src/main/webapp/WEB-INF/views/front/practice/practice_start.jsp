@@ -68,7 +68,6 @@
 			</td>
 		</tr>
 	</table>
-	<input type="hidden" id="chapterIdHidden" value="1"/>
 	<jsp:include page="../common/foot.jsp" />
 </body>
 <%@include file="../common/js.jsp" %>

@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<!-- 随机查询指定数目和难度的填空题 -->
-	<select id="findBlankIdByRandom" parameterType="java.util.Map" resultMap="singleBlank">
+	<select id="findBlankIdByRandom" parameterType="java.util.Map" resultType="int">
 		select bk_id
 		from vo_blank
 		where bk_level = #{level}
@@ -19,9 +19,9 @@
 	</select>
 	
 	<!-- 通过ID集合查询指定填空题 -->
-	<select id="findBlanksByIds" resultType="Blank">
+	<select id="findBlanksByIds" resultMap="singleBlank">
 		select
-		bk_blankid,bk_question,bk_answer
+		bk_id,bk_question,bk_answer
 		from vo_blank
 		where bk_id in
 		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">

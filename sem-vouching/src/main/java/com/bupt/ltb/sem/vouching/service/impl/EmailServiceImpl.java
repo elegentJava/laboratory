@@ -156,16 +156,17 @@ public class EmailServiceImpl implements EmailService {
 			if (emailIds.length != 0) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("array", emailIds);
+				map.put("type", type);
 				if (type == Consts.EMAIL_TYPE_RECEIVE) {
 					map.put("receiveDel", Consts.EMAIL_IS_DELETE);
-					if (emailMapper.batchUpdateReceiveEmailDelStatus(map) == emailIds.length) {
+					if (emailMapper.batchUpdateEmailDelStatus(map) == emailIds.length) {
 						result.setErrorCode(ErrorCode.SUCCESS);
 					} else {
 						result.setErrorCode(EmailError.DEL_EMAIL_FAILD);
 					}
 				} else {
 					map.put("sendDel", Consts.EMAIL_IS_DELETE);
-					if (emailMapper.batchUpdateSendEmailDelStatus(map) == emailIds.length) {
+					if (emailMapper.batchUpdateEmailDelStatus(map) == emailIds.length) {
 						result.setErrorCode(ErrorCode.SUCCESS);
 					} else {
 						result.setErrorCode(EmailError.DEL_EMAIL_FAILD);

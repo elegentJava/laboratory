@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.ExamMapper" >
+
+	<resultMap type="Exam" id="singleExam">
+		<id column="ex_id" property="examId"/>
+		<result column="ex_name" property="name"/>
+		<result column="ex_createdate" property="createDate"/>
+		<result column="ex_bak" property="bak"/>
+		<result column="ex_radioid" property="radioId"/>
+		<result column="ex_blankid" property="blankId"/>
+		<result column="ex_phraseid" property="phraseId"/>
+		<result column="ex_translateid" property="translateId"/>
+		<result column="ex_clozeid" property="clozeId"/>
+		<result column="ex_teacherid" property="teacherId"/>
+		<result column="ex_isactive" property="isActive"/>
+		<result column="ex_classid" property="classId"/>
+		<result column="ex_radio_score" property="radioScore"/>
+		<result column="ex_blank_score" property="blankScore"/>
+		<result column="ex_phrase_score" property="phraseScore"/>
+		<result column="ex_translate_score" property="translateScore"/>
+		<result column="ex_cloze_score" property="clozeScore"/>
+	</resultMap>
+	
+	<!-- 根据激活状态查询试卷详情信息的返回结果Map -->
+	<resultMap id="findExamDetailByStatusAndTeacher" type="Exam">
+		<id property="examId" column="ex_id"/>
+		<result property="name" column="ex_name"/>
+		<result property="createDate" column="ex_createdate"/>
+		<result property="isActive" column="ex_isactive"/>
+		<result property="bak" column="ex_bak"/>
+		<association property="clas" column="c_id" javaType="Class">
+			<id property="classId" column="c_id"/>
+			<result property="className" column="c_name"/>
+		</association>
+	</resultMap>
+
+	<!-- 通过考试名称查询考试信息 -->
+	<select id="findExamByName" parameterType="string" resultMap="singleExam">
+		select
+		ex_id,ex_name,ex_createdate,ex_bak
+		from vo_exam
+		where ex_name = #{examName} 
+	</select>
+	
+	<!-- 保存试卷信息 -->
+	<insert id="saveExam" parameterType="Exam">
+		<selectKey resultType="int" order="AFTER" keyProperty="examId">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		vo_exam(ex_name,ex_createdate,ex_bak,ex_teacherid,ex_isactive,ex_classid,
+			 ex_radioid,ex_blankid,ex_phraseid,ex_translateid,ex_clozeid,
+			 ex_radio_score,ex_blank_score,ex_phrase_score,ex_translate_score,ex_cloze_score)
+		values(#{name},#{createDate},#{bak},#{teacherId},#{isActive},#{classId},
+			 #{radioId},#{blankId},#{phraseId},#{translateId},#{clozeId},
+			 #{radioScore},#{blankScore},#{phraseScore},#{translateScore},#{clozeScore})
+	</insert>
+	
+	<!-- 通过ID查询指定试卷 -->
+	<select id="findExamById" parameterType="int" resultMap="singleExam">
+		select
+		ex_Id,ex_name,ex_bak,ex_radioid,ex_blankid,ex_phraseid,ex_translateid,ex_clozeid
+		from vo_exam
+		where ex_Id = #{examId}
+	</select>
+	
+	<!-- 修改试卷的题目ID集合字符串 -->
+	<update id="updateQuestionId" parameterType="Exam">
+		update vo_exam
+		set ex_radioid = #{radioId},ex_blankid = #{blankId},ex_phraseid = #{phraseId},ex_clozeid = #{clozeId},ex_translateid = #{translateId}
+		where ex_id = #{examId}
+	</update>
+	
+	<!-- 根据激活状态查询试卷详情信息 -->
+	<select id="findExamDetailByStatusAndTeacher" parameterType="int" resultMap="findExamDetailByStatusAndTeacher">
+		select 
+		ex_id,ex_name,ex_createdate,ex_bak,c_id,c_name
+		from vo_exam, vo_class
+		where ex_classid = c_id and ex_isactive = #{isActive} and ex_teacherid = #{teacherId}
+	</select>
+	
+	<!-- 根据试卷ID修改试卷状态 -->
+	<update id="updateExamStatusById" parameterType="java.util.Map">
+		update vo_exam
+		set ex_isactive = #{isActive}
+		where ex_id = #{examId}
+	</update>
+	
+	<!-- 根据ID删除试卷 -->
+	<delete id="deleteExamById" parameterType="int">
+		delete
+		from vo_exam
+		where ex_id = #{examId}
+	</delete>
+	
+</mapper>

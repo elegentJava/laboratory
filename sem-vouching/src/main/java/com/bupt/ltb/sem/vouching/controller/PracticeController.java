@@ -21,7 +21,7 @@ import com.bupt.ltb.sem.vouching.service.PracticeService;
  * @author Hogan
  */
 @Controller
-@RequestMapping("/p")
+@RequestMapping("/practice")
 public class PracticeController {
 
 	private Logger log = Logger.getLogger(getClass());
@@ -36,7 +36,7 @@ public class PracticeController {
 	 * @return
 	 */
 	@RequestMapping("loadPracticeSelectInfo")
-	public @ResponseBody JSONObject loadPracticeSelectInfo(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadPracticeSelectInfo(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -55,11 +55,11 @@ public class PracticeController {
 	 * @return
 	 */
 	@RequestMapping("generatePracticePaper")
-	public @ResponseBody JSONObject generatePracticePaper(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject generatePracticePaper(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = practiceService.generatePracticePaper(rt.getJParams());
+			detail = practiceService.generatePracticePaper(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("生成练习试卷失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -73,12 +73,12 @@ public class PracticeController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadStartTest")
-	public @ResponseBody JSONObject loadStartTest(@RequestBody JSONObject jo) {
+	@RequestMapping("loadStartPracticeInfo")
+	public @ResponseBody JSONObject loadStartPracticeInfo(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = practiceService.loadStartTest(rt.getJParams());
+			detail = practiceService.loadStartPracticeInfo(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("装载开始考试页面失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -92,12 +92,12 @@ public class PracticeController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadTestRecord")
-	public @ResponseBody JSONObject loadTestRecord(@RequestBody JSONObject jo, HttpSession session) {
+	@RequestMapping("loadPracticeRecord")
+	public @ResponseBody JSONObject loadPracticeRecord(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = practiceService.loadTestRecord(rt.getJParams(), session);
+			detail = practiceService.loadPracticeRecord(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("装载练习记录失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -112,11 +112,11 @@ public class PracticeController {
 	 * @return
 	 */
 	@RequestMapping("showAnswerAndScore")
-	public @ResponseBody JSONObject showAnswerAndScore(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject showAnswerAndScore(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = practiceService.showAnswerAndScore(rt.getJParams());
+			detail = practiceService.showAnswerAndScore(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("展示答案和分数失败!", e);
 			return new ResponseTemplate().getReturn();

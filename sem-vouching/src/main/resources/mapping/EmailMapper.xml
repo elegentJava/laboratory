@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bupt.ltb.sem.vouching.mapper.EmailMapper" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.EmailMapper">
 
 	<resultMap type="Email" id="singleEmail">
-		<id property="emailId" column="em_id"/>
-		<result property="subject" column="em_subject"/>
-		<result property="content" column="em_content"/>
-		<result property="date" column="em_date"/>
-		<result property="isRead" column="em_isread"/>
-		<result property="sendDel" column="em_senddel"/>
-		<result property="receiveDel" column="em_receivedel"/>
-		<result property="sendId" column="em_sendid"/>
-		<result property="sendName" column="em_sendname"/>
-		<result property="receiveId" column="em_receiveid"/>
-		<result property="receiveName" column="em_receivename"/>
+		<id property="emailId" column="em_id" />
+		<result property="subject" column="em_subject" />
+		<result property="content" column="em_content" />
+		<result property="date" column="em_date" />
+		<result property="isRead" column="em_isread" />
+		<result property="sendDel" column="em_senddel" />
+		<result property="receiveDel" column="em_receivedel" />
+		<result property="sendId" column="em_sendid" />
+		<result property="sendName" column="em_sendname" />
+		<result property="receiveId" column="em_receiveid" />
+		<result property="receiveName" column="em_receivename" />
 	</resultMap>
-	
+
 	<!-- 查询前五条未读的收件信 -->
-	<select id="findReceiveUnreadEmails" parameterType="int" resultMap="singleEmail">
+	<select id="findReceiveUnreadEmails" parameterType="int"
+		resultMap="singleEmail">
 		select
 		em_id,em_sendid,em_sendname,em_receiveid,em_receivename,em_subject,em_content,em_date,em_isread,em_senddel,em_receivedel
 		from vo_email
-		where em_receiveid = #{receiveId} and em_receivedel = 0 and em_isread = 0
+		where em_receiveid = #{receiveId} and em_receivedel = 0
+		and em_isread = 0
 		order by em_date DESC
 		limit 0, 5
 	</select>
-	
+
 	<!-- 查询所有未删除的收件信 -->
 	<select id="findReceiveEmails" parameterType="int" resultMap="singleEmail">
 		select
@@ -34,14 +36,65 @@
 		where em_receiveid = #{receiveId} and em_receivedel = 0
 		order by em_date DESC
 	</select>
-	
+
 	<!-- 查询所有未删除的发件信 -->
 	<select id="findSendEmails" parameterType="int" resultMap="singleEmail">
 		select
 		em_id,em_sendid,em_sendname,em_receiveid,em_receivename,em_subject,em_content,em_date,em_isread,em_senddel,em_receivedel
 		from vo_email
 		where em_sendid = #{sendId} and em_senddel = 0
-		order by em_date DESC
+		order by
+		em_date DESC
 	</select>
+
+	<!-- 查询未读收件信的记录数 -->
+	<select id="findUnreadReceiveEmailCount" parameterType="int" resultType="int">
+		select count(1)
+		from vo_email
+		where em_receiveid =
+		#{receiveId} and em_receivedel = 0 and em_isread = 0
+	</select>
+
+	<!-- 保存邮件信息 -->
+	<insert id="saveEmail" parameterType="Email">
+		insert into vo_email
+		(em_id,em_sendid,em_sendname,em_receiveid,em_receivename,em_subject,em_content,em_date,em_isread,em_senddel,em_receivedel)
+		values
+		(#{emailId},#{sendId},#{sendName},#{receiveId},#{receiveName},#{subject},#{content},#{date},#{isRead},#{sendDel},#{receiveDel})
+	</insert>
+
+	<!-- 修改邮件状态 -->
+	<update id="updateEmailStatus" parameterType="Email">
+		update vo_email
+		set
+		em_isread = #{isRead}
+		where em_id = #{emailId}
+	</update>
+
+	<!-- 批量修改邮件的删除状态 -->
+	<update id="batchUpdateEmailDelStatus" parameterType="java.util.Map">
+		update vo_email
+		<choose>
+			<when test="type==1">
+				set em_receivedel = #{receiveDel}
+			</when>
+			<otherwise>
+				set em_senddel = #{sendDel}
+			</otherwise>
+		</choose>
+		where em_id in
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
 	
+	<!-- 通过ID查询邮件 -->
+	<select id="findEmailById" parameterType="int" resultMap="singleEmail">
+		select 
+		em_id,em_sendid,em_sendname,em_receiveid,em_receivename,em_subject,em_content,em_date,em_isread,em_senddel,em_receivedel
+		from vo_email
+		where em_id = #{emailId}
+	</select>
+
 </mapper>

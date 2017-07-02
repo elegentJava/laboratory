@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.UserPaperMapper" >
+
+	<!-- 查询用户已经参加过的考试信息 -->
+	<resultMap type="UserPaper" id="paperAndExamAndUserAndClass">
+		<id column="up_id" property="userPaperId"/>
+		<result column="up_answerdate" property="answerDate"/>
+		<result column="up_score" property="score"/>
+		<association property="exam" column="up_examid" javaType="Exam">
+			<id column="ex_id" property="examId"/>
+			<result column="ex_name" property="name"/>
+		</association>
+		<association property="user" column="up_userid" javaType="User">
+			<id column="u_userid" property="userId"/>
+			<result column="u_name" property="name"/>
+			<association property="clas" column="u_classid" javaType="Class">
+				<id column="c_id" property="classId"/>
+				<result column="c_name" property="className"/>
+			</association>
+		</association>
+	</resultMap>
+	
+	<!-- 通过试卷ID和试卷处理状态查询试卷信息 -->
+	<select id="findUserpaperByExamIdAndStatus" parameterType="java.util.Map" resultMap="paperAndExamAndUserAndClass">
+		select
+		up_id,up_answerdate,up_name,ex_id,ex_name,u_userid,u_name,c_name,up_score
+		from vo_userpaper, vo_exam, vo_user, vo_class
+		where up_status = #{status} and 
+			  up_examid = #{examId} and 
+			  up_examid = ex_id and 
+			  up_userid = u_userid and
+			  u_classid = c_id
+	</select>
+
+	
+</mapper>

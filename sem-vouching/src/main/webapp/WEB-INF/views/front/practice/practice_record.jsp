@@ -3,9 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<%@include file="../common/common.jsp"%>
-<link href="<%=bp%>/css/front/style2.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=bp%>/js/front/practice/testrecord.js"></script>
+<%@include file="../common/css.jsp"%>
+<link href="/vouching/css/front/style2.css" rel="stylesheet" type="text/css" />
 <title>词汇查询</title>
 </head>
 <body>
@@ -15,7 +14,7 @@
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="80" rowspan="2">
-							<img src="<%=bp%>/images/pic_user1.jpg" width="80" height="70" />
+							<img src="/vouching/images/pic_user1.jpg" width="80" height="70" />
 						</td>
 						<td class="weizhi"><strong> 首页 -> 练习平台 -> 查看成绩记录</strong></td>
 					</tr>
@@ -37,8 +36,7 @@
 			</td>
 		</tr>
 	</table>
-	<input type="hidden" id="token" value="${token}"/>
 </body>
+<%@include file="../common/js.jsp" %>
+<script type="text/javascript" src="/vouching/js/front/practice/practice.record.js"></script>
 </html>
-
-

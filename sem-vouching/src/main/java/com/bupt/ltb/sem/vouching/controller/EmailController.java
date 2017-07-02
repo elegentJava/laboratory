@@ -37,7 +37,7 @@ public class EmailController {
 	 * @return
 	 */
 	@RequestMapping("loadEmailBox")
-	public @ResponseBody JSONObject loadEmailBox(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject loadEmailBox(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -56,7 +56,7 @@ public class EmailController {
 	 * @return
 	 */
 	@RequestMapping("sendEmail")
-	public @ResponseBody JSONObject sendEmail(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject sendEmail(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -75,7 +75,7 @@ public class EmailController {
 	 * @return
 	 */
 	@RequestMapping("loadEmailDetail")
-	public @ResponseBody JSONObject loadEmailDetail(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject loadEmailDetail(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -94,7 +94,7 @@ public class EmailController {
 	 * @return
 	 */
 	@RequestMapping("batchDeleteEmail")
-	public @ResponseBody JSONObject batchDeleteEmail(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject batchDeleteEmail(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
@@ -113,7 +113,7 @@ public class EmailController {
 	 * @return
 	 */
 	@RequestMapping("loadUnreadEmailsForMain")
-	public @ResponseBody JSONObject loadUnreadEmailsForMain(@RequestBody JSONObject jo, HttpSession session) {
+	public @ResponseBody JSONObject loadUnreadEmailsForMain(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);

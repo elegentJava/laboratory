@@ -53,23 +53,15 @@ public interface EmailMapper {
 	 * @param integer
 	 * @return
 	 */
-	public Email findEmailById(Integer integer);
+	public Email findEmailById(@Param("emailId") Integer emailId);
 
 	/**
-	 * 批量修改收到邮件的删除状态
+	 * 批量修改邮件的删除状态
 	 * 
 	 * @param map
 	 * @return
 	 */
-	public Integer batchUpdateReceiveEmailDelStatus(Map<String, Object> map);
-
-	/**
-	 * 批量修改发送邮件的删除状态
-	 * 
-	 * @param map
-	 * @return
-	 */
-	public Integer batchUpdateSendEmailDelStatus(Map<String, Object> map);
+	public Integer batchUpdateEmailDelStatus(Map<String, Object> map);
 
 	/**
 	 * 查询所有未读的收件信
@@ -77,5 +69,13 @@ public interface EmailMapper {
 	 * @param userId
 	 * @return
 	 */
-	public List<Email> findReceiveUnreadEmails(Integer receiveId);
+	public List<Email> findReceiveUnreadEmails(@Param("receiveId") Integer receiveId);
+
+	/**
+	 * 查询未读收件信的记录数
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Integer findUnreadReceiveEmailCount(@Param("receiveId") Integer receiveId);
 }

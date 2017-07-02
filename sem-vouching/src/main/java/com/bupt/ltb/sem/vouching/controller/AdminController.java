@@ -2,6 +2,7 @@ package com.bupt.ltb.sem.vouching.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping("lul")
-	public @ResponseBody JSONObject loadUserList(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject loadUserList(HttpSession session, @RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);

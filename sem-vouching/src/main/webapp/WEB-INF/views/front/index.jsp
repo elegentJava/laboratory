@@ -51,7 +51,7 @@
 						<div style="height: 22px;">
 							<ul class="smenu" style="height: 22px;">
 								<li style="padding-left: 0px;" name="zypt" class='s_li'>
-									<a href="/vouching/forward/forwardGloassary" target="menu">词汇查询</a> | 
+									<a href="/vouching/forward/forwardGlossary" target="menu">词汇查询</a> | 
 									<a href="/vouching/forward/forwardSentence" target="menu">语句查询</a> 
 									<c:if test="${user.role == 2}">
 										|
@@ -70,7 +70,7 @@
 											<a href="/vouching/forward/forwardMarkPaper" target="menu">批改试卷</a> | 
 											<a href="/vouching/forward/forwardExamSetting" target="menu">考试设置</a> | 
 											<a href="/vouching/forward/forwardChapter" target="menu">章节设置</a> |
-											<a href="/vouching/forward/forwardExamGrade" target="menu">查看成绩</a>
+											<a href="/vouching/forward/forwardExamStudentScore" target="menu">查看成绩</a>
 										</c:when>
 										<c:otherwise>
 											<a href="/vouching/forward/forwardJoinExam" target="menu">查看考试信息</a> | 
@@ -80,7 +80,7 @@
 								</li>
 								<c:if test="${user.role == 1}">
 									<li style="padding-left: 230px;" name="lxpt" class='s_li'>
-										<a href="/vouching/forward/forwardTestSelect" target="menu">学生练习</a>
+										<a href="/vouching/forward/forwardPracticeSelect" target="menu">学生练习</a>
 										<a href="/vouching/forward/forwardShowRecord" target="menu">查看练习记录</a>
 									</li>
 								</c:if>
@@ -108,7 +108,7 @@
 		</table>
 	</div>
 	<div>
-		<iframe scrolling="auto" rameborder="0" name="menu" width="100%" height="100%" src="/vouching/forward/fowrardFrontMain"></iframe>
+		<iframe scrolling="auto" rameborder="0" name="menu" width="100%" height="100%" src="/vouching/forward/forwardFrontMain"></iframe>
 	</div>
 </body>
 <%@include file="common/js.jsp" %>
