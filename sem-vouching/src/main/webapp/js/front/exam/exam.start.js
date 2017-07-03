@@ -13,10 +13,7 @@ $(function(){
  */
 function loadStartExam() {
 	var loading = layer.load();
-	var url = "/vouching/exam/loadStartExam";
-	var data = {
-		token : $("#token").val()
-	};
+	var url = "/vouching/exam/loadStartExamInfo";
 	var successCallback = function(data){
 		var radios = data.detail.radios;
 		var blanks = data.detail.blanks;
@@ -109,7 +106,7 @@ function loadStartExam() {
 		
 		layer.close(loading);
 	};
-	VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null, loading);
+	Utils.common.ajax.commonAjax(url, false, null, successCallback, null, loading);
 }
 
 /**
@@ -142,9 +139,8 @@ function submitExam() {
 		for (var i = 0; i < translatesObj.length; i++) {
 			translateAnswers[i] = $(translatesObj[i]).val();
 		}
-		var url = "/vouching/exam/saveUserExam";
+		var url = "/vouching/exam/generateUserPaper";
 		var data = {
-		    token : $("#token").val(),
 		    examId : $("#examId").val(),
 		    radioAnswers : radioAnswers,
 		    phraseAnswers : phraseAnswers,
@@ -154,8 +150,8 @@ function submitExam() {
 		};
 		var successCallback = function(data){
 			layer.msg("试卷保存成功!");
-			VCUtils.common.util.simpleHref("/vouching//forward/forwardJoinExam?token=" + $("#token").val());
+			Utils.common.util.simpleHref("/vouching/forward/forwardJoinExam");
 		};
-		VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null ,null);
+		Utils.common.ajax.commonAjax(url, false, data, successCallback, null ,null);
 	});
 }

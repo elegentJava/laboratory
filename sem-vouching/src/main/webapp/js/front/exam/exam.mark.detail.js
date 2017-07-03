@@ -3,7 +3,6 @@ $(function(){
 	var loading = layer.load();
 	var url = "/vouching/exam/loadMarkDetail";
 	data = {
-		token : $("#token").val(),
 		userPaperId : $("#userPaperId").val(),
 	};
 	var successCallback = function(data) {
@@ -111,7 +110,7 @@ $(function(){
 		}
 		layer.close(loading);
 	};
-	VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null, loading);
+	Utils.common.ajax.commonAjax(url, false, data, successCallback, null, loading);
 	
 	//批阅试卷
 	$("#mark").bind("click",function(){
@@ -135,9 +134,8 @@ $(function(){
 		for (var i = 0; i < translateObj.length; i++) {
 			translateScores[i] = $(translateObj[i]).val();
 		}
-		var url = "/vouching/exam/markPaper";
+		var url = "/vouching/exam/generateMarkPaper";
 		var data = {
-			token : $("#token").val(),
 			userPaperId : $("#userPaperId").val(),
 			blankScores : blankScores,
 			phraseScores : phraseScores,
@@ -146,10 +144,10 @@ $(function(){
 		};
 		var successCallback = function(data){
 			layer.msg("批改成功!");
-			var url = "/vouching/forward/forwardMarkPaper?token="+$("#token").val();
-			VCUtils.common.util.simpleHref(url);
+			var url = "/vouching/forward/forwardMarkPaper";
+			Utils.common.util.simpleHref(url);
 		};
-		VCUtils.common.ajax.commonAjax(url, false, data, successCallback, null, null);
+		Utils.common.ajax.commonAjax(url, false, data, successCallback, null, null);
 	});
 	
 });

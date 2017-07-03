@@ -3,9 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<%@include file="../common/common.jsp"%>
-<link href="<%=bp%>/css/front/style2.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=bp%>/js/front/exam/examrecord.js" ></script>
+<%@include file="../common/css.jsp"%>
+<link href="/vouching/css/front/style2.css" rel="stylesheet" type="text/css" />
 <title>查看历史成绩</title> 
 </head>
 <body>
@@ -15,7 +14,7 @@
 			<td align="center" valign="top" class="right_td">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td width="80" rowspan="3"><img src="<%=bp%>/images/pic_user1.jpg" width="80" height="70" /></td>
+						<td width="80" rowspan="3"><img src="/vouching/images/pic_user1.jpg" width="80" height="70" /></td>
 						<td>&nbsp;</td>
 					</tr>
 					<tr><td colspan="2" class="weizhi">&nbsp;<strong>首页 ->考试平台 ->查看历史成绩</strong></td></tr>
@@ -35,7 +34,8 @@
 			</td>
 		</tr>
 	</table>
-	<input type="hidden" id="token" value="${token}"/>
 	<jsp:include page="../common/foot.jsp" />
 </body>
+<%@include file="../common/js.jsp" %>
+<script type="text/javascript" src="/vouching/js/front/exam/exam.student.record.js" ></script>
 </html>

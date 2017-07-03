@@ -77,5 +77,6 @@ public class Consts {
 	public static final String ANSWER_NULL = "&|&";
 	public static final Integer EXAM_JOINED = 1;
 	public static final Integer USER_PAPER_DONE = 1;
+	public static final Integer USER_PAPER_UNDO = 0;
 
 }

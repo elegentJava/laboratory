@@ -116,17 +116,19 @@ public interface ExamService {
 	 * 参加考试
 	 * 
 	 * @param jParams
+	 * @param session
 	 * @return
 	 */
-	public LJSONObject startExam(JSONObject jParams);
+	public LJSONObject startExam(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 装载考试页面
 	 * 
 	 * @param jParams
+	 * @param session
 	 * @return
 	 */
-	public LJSONObject loadStartExam(JSONObject jParams);
+	public LJSONObject loadStartExamInfo(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 保存用户考试信息
@@ -134,7 +136,7 @@ public interface ExamService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject saveUserExam(JSONObject jParams);
+	public LJSONObject generateUserPaper(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 装载用户考试成绩信息
@@ -142,7 +144,7 @@ public interface ExamService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject loadExamRecord(JSONObject jParams);
+	public LJSONObject loadExamStudentRecord(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 自动组卷页面校验考试名称
@@ -167,7 +169,7 @@ public interface ExamService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject loadMarkPaper(JSONObject jParams);
+	public LJSONObject loadMarkPaperInfo(JSONObject jParams, HttpSession session);
 
 	/**
 	 * 装载批阅试卷详情信息
@@ -183,7 +185,7 @@ public interface ExamService {
 	 * @param jParams
 	 * @return
 	 */
-	public LJSONObject markPaper(JSONObject jParams);
+	public LJSONObject generateMarkPaper(JSONObject jParams);
 
 	/**
 	 * 装载考试信息

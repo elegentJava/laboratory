@@ -21,10 +21,65 @@
 		</association>
 	</resultMap>
 	
+	<!-- 查询用户已经参加过的考试信息 -->
+	<resultMap type="UserPaper" id="ExamAndPaper">
+		<id column="up_id" property="userPaperId"/>
+		<result column="up_status" property="status"/>
+		<association property="exam" column="ex_id" javaType="Exam">
+			<id column="ex_id" property="examId"/>
+			<result column="ex_name" property="name"/>
+			<result column="ex_bak" property="bak"/>
+			<result column="ex_createdate" property="createDate"/>
+		</association>
+	</resultMap>
+	
+	<!-- 查询用户已经参加过的考试信息 -->
+	<resultMap type="UserPaper" id="findUserpaperByUserPaperId">
+		<id column="up_id" property="userPaperId"/>
+		<result column="up_answerdate" property="answerDate"/>
+		<result column="up_radios" property="radios"/>
+		<result column="up_blanks" property="blanks"/>
+		<result column="up_phrases" property="phrases"/>
+		<result column="up_translates" property="translates"/>
+		<result column="up_clozes" property="clozes"/>
+		<association property="exam" column="up_examid" javaType="Exam">
+			<id column="ex_id" property="examId"/>
+			<result column="ex_name" property="name"/>
+			<result column="ex_radioid" property="radioId"/>
+			<result column="ex_blankid" property="blankId"/>
+			<result column="ex_phraseid" property="phraseId"/>
+			<result column="ex_translateid" property="translateId"/>
+			<result column="ex_clozeid" property="clozeId"/>
+			<result column="ex_radio_score" property="radioScore"/>
+			<result column="ex_blank_score" property="blankScore"/>
+			<result column="ex_phrase_score" property="phraseScore"/>
+			<result column="ex_translate_score" property="translateScore"/>
+			<result column="ex_cloze_score" property="clozeScore"/>
+		</association>
+		<association property="user" column="up_userid" javaType="User">
+			<id column="u_userid" property="userId"/>
+			<result column="u_name" property="name"/>
+			<association property="clas" column="u_classid" javaType="Class">
+				<id column="c_id" property="classId"/>
+				<result column="c_name" property="className"/>
+			</association>
+		</association>
+	</resultMap>
+	
+	<resultMap type="UserPaper" id="paperAndUser">
+		<id column="up_id" property="userPaperId"/>
+		<result column="up_answerdate" property="answerDate"/>
+		<result column="up_score" property="score"/>
+		<association property="exam" column="up_examid" javaType="Exam">
+			<id column="ex_id" property="examId"/>
+			<result column="ex_name" property="name"/>
+		</association>
+	</resultMap>
+	
 	<!-- 通过试卷ID和试卷处理状态查询试卷信息 -->
 	<select id="findUserpaperByExamIdAndStatus" parameterType="java.util.Map" resultMap="paperAndExamAndUserAndClass">
 		select
-		up_id,up_answerdate,up_name,ex_id,ex_name,u_userid,u_name,c_name,up_score
+		up_id,up_answerdate,up_score,ex_id,ex_name,u_userid,u_name,c_id,c_name
 		from vo_userpaper, vo_exam, vo_user, vo_class
 		where up_status = #{status} and 
 			  up_examid = #{examId} and 
@@ -32,6 +87,64 @@
 			  up_userid = u_userid and
 			  u_classid = c_id
 	</select>
-
+	
+	<!-- 查询用户已经参加过的考试信息 -->
+	<select id="findJoinedExam" parameterType="java.util.Map" resultMap="ExamAndPaper">
+		select
+		up_id,ex_id,ex_name,ex_createdate,ex_bak,up_status
+		from vo_exam, vo_userpaper
+		where up_userid = #{userId} and ex_id = up_examid and ex_classid = #{classId} and ex_isactive = 1 
+	</select>
+	
+	<!-- 保存用户试卷 -->
+	<insert id="saveUserPaper" parameterType="UserPaper"> 
+		insert into 
+		vo_userpaper(up_answerdate,up_radios,up_blanks,up_phrases,up_translates,up_clozes,up_examid,up_score,up_userid,up_status)
+		values(#{answerDate},#{radios},#{blanks},#{phrases},#{translates},#{clozes},#{examId},#{score},#{userId},#{status})
+	</insert>
+	
+	<!-- 通过试卷IDs和试卷处理状态查询试卷信息 -->
+	<select id="findUserpaperByExamIdsAndStatus" parameterType="java.util.Map" resultMap="paperAndExamAndUserAndClass">
+		select
+		up_id,up_answerdate,ex_id,ex_name,u_userid,u_name,c_id,c_name
+		from vo_userpaper, vo_exam, vo_user, vo_class
+		where up_status = #{status} and 
+			  up_examid = ex_id and
+			  up_userid = u_userid and
+			  u_classid = c_id and
+			  up_examid in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+	
+	<!-- 通过试卷ID查询试卷信息 -->
+	<select id="findUserpaperByUserPaperId" parameterType="java.util.Map" resultMap="findUserpaperByUserPaperId">
+		select
+			up_id,up_answerdate,up_radios,up_blanks,up_translates,up_clozes,up_phrases,
+			ex_name,ex_radioid,ex_blankid,ex_phraseid,ex_clozeid,ex_translateid,
+			ex_radio_score,ex_blank_score,ex_phrase_score,ex_translate_score,ex_cloze_score,
+			u_userid,u_name,c_id,c_name
+		from vo_userpaper, vo_exam, vo_user, vo_class
+		where up_id = #{userPaperId} and
+			  up_examid = ex_id and 
+			  up_userid = u_userid and
+			  u_classid = c_id
+	</select>
+	
+	<!-- 修改学生答卷的状态和分数 -->
+	<update id="updateStatusAndScore" parameterType="java.util.Map">
+		update vo_userpaper
+		set up_status = #{status}, up_score = #{score}
+		where up_id = #{userPaperId}
+	</update>
+	
+	<!-- 通过用户ID查询试卷 -->
+	<select id="findUserpaperByUserIdAndStatus" parameterType="java.util.Map" resultMap="paperAndUser">
+		select
+		up_id,up_examid,up_answerdate,up_score,ex_id,ex_name
+		from vo_userpaper, vo_exam
+		where up_userid = #{userId} and up_status = #{status} and up_examid = ex_id
+	</select>
 	
 </mapper>

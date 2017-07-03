@@ -15,6 +15,7 @@
 		<result column="u_credit" property="credit"/>
 		<result column="u_ispass" property="isPass"/>
 		<result column="u_role" property="role"/>
+		<result column="u_classid" property="classId"/>
 	</resultMap>
 	
 	<resultMap type="User" id="userAndClass">

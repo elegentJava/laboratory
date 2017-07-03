@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<!-- 根据激活状态查询试卷详情信息的返回结果Map -->
-	<resultMap id="findExamDetailByStatusAndTeacher" type="Exam">
+	<resultMap id="examAndClass" type="Exam">
 		<id property="examId" column="ex_id"/>
 		<result property="name" column="ex_name"/>
 		<result property="createDate" column="ex_createdate"/>
@@ -73,7 +73,7 @@
 	</update>
 	
 	<!-- 根据激活状态查询试卷详情信息 -->
-	<select id="findExamDetailByStatusAndTeacher" parameterType="int" resultMap="findExamDetailByStatusAndTeacher">
+	<select id="findExamDetailByStatusAndTeacher" parameterType="int" resultMap="examAndClass">
 		select 
 		ex_id,ex_name,ex_createdate,ex_bak,c_id,c_name
 		from vo_exam, vo_class
@@ -93,5 +93,20 @@
 		from vo_exam
 		where ex_id = #{examId}
 	</delete>
+	
+	<!-- 查询用户未参加过的考试 -->
+	<select id="findUnjoinedExam" parameterType="java.util.Map" resultMap="singleExam">
+		select ex_id,ex_name,ex_createdate,ex_bak
+		from vo_exam
+		where ex_classid = #{classId} and ex_isactive = 1 and ex_id not in 
+		(select up_examid from vo_userpaper where up_userid = #{userId})
+	</select>
+	
+	<!-- 通过教师ID查询所有创建的试卷ID -->
+	<select id="findExamIdsByUserId" parameterType="int" resultType="int">
+		select ex_id
+		from vo_exam
+		where ex_teacherid = #{teacherId}
+	</select>
 	
 </mapper>

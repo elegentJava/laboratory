@@ -265,11 +265,11 @@ public class ExamController {
 	 * @return
 	 */
 	@RequestMapping("startExam")
-	public @ResponseBody JSONObject startExam(@RequestBody JSONObject jo) {
+	public @ResponseBody JSONObject startExam(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.startExam(rt.getJParams());
+			detail = examService.startExam(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("参加考试失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -283,12 +283,12 @@ public class ExamController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadStartExam")
-	public @ResponseBody JSONObject loadStartExam(@RequestBody JSONObject jo) {
+	@RequestMapping("loadStartExamInfo")
+	public @ResponseBody JSONObject loadStartExamInfo(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.loadStartExam(rt.getJParams());
+			detail = examService.loadStartExamInfo(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("装载考试页面失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -302,12 +302,12 @@ public class ExamController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("saveUserExam")
-	public @ResponseBody JSONObject saveUserExam(@RequestBody JSONObject jo) {
+	@RequestMapping("generateUserPaper")
+	public @ResponseBody JSONObject generateUserPaper(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.saveUserExam(rt.getJParams());
+			detail = examService.generateUserPaper(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("保存用户考试信息失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -321,12 +321,12 @@ public class ExamController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadExamRecord")
-	public @ResponseBody JSONObject loadExamRecord(@RequestBody JSONObject jo) {
+	@RequestMapping("loadExamStudentRecord")
+	public @ResponseBody JSONObject loadExamStudentRecord(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.loadExamRecord(rt.getJParams());
+			detail = examService.loadExamStudentRecord(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("装载用户考试成绩信息失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -378,12 +378,12 @@ public class ExamController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("loadMarkPaper")
-	public @ResponseBody JSONObject loadMarkPaper(@RequestBody JSONObject jo) {
+	@RequestMapping("loadMarkPaperInfo")
+	public @ResponseBody JSONObject loadMarkPaperInfo(@RequestBody JSONObject jo, HttpSession session) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.loadMarkPaper(rt.getJParams());
+			detail = examService.loadMarkPaperInfo(rt.getJParams(), session);
 		} catch (Exception e) {
 			log.error("装载批改试卷信息失败!", e);
 			return new ResponseTemplate().getReturn();
@@ -416,12 +416,12 @@ public class ExamController {
 	 * @param jo
 	 * @return
 	 */
-	@RequestMapping("markPaper")
-	public @ResponseBody JSONObject markPaper(@RequestBody JSONObject jo) {
+	@RequestMapping("generateMarkPaper")
+	public @ResponseBody JSONObject generateMarkPaper(@RequestBody JSONObject jo) {
 		LJSONObject detail = null;
 		try {
 			RequestTemplate rt = new RequestTemplate(jo);
-			detail = examService.markPaper(rt.getJParams());
+			detail = examService.generateMarkPaper(rt.getJParams());
 		} catch (Exception e) {
 			log.error("批阅试卷失败!", e);
 			return new ResponseTemplate().getReturn();

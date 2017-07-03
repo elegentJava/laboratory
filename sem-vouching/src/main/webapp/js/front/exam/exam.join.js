@@ -77,9 +77,8 @@ function initLoadData(tbodyId,joinStatus){
  */
 function loadJoinedForPage(pageNum){
 	var loading = layer.load();
-	var url = "/vouching/exam/loadJoinExam";
+	var url = "/vouching/exam/loadJoinExamInfo";
 	var data = {
-		token : $("#token").val(),
 		pageNum : pageNum,
 		joinStatus : 1
 	};
@@ -114,9 +113,8 @@ function loadJoinedForPage(pageNum){
  */
 function loadUnjoinedForPage(pageNum){
 	var loading = layer.load();
-	var url = "/vouching/exam/loadJoinExam";
+	var url = "/vouching/exam/loadJoinExamInfo";
 	var data = {
-		token : $("#token").val(),
 		pageNum : pageNum,
 		joinStatus : 0
 	};
@@ -153,18 +151,16 @@ function joinExam(){
 	$("a[name='joinExam']").each(function(){
 		$(this).unbind("click");
 		$(this).bind("click",function(){
-			token = $("#token").val();
 			var examId = $(this).attr("examId");
 			var url = "/vouching/exam/startExam";
 			var data = {
-				token : token,
 				examId : examId
 			};
 			var successCallback = function(data){
-				var url = "/vouching/forward/forwardStartExam?token="+token;
+				var url = "/vouching/forward/forwardStartExam";
 				Utils.common.util.simpleHref(url);
 			};
-			Utils.common.ajax.commonAjax(url, false, data, successCallback, null, null);
+			Utils.common.ajax.commonAjax(url, false, data, successCallback);
 		});
 	});
 }

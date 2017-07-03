@@ -3,6 +3,8 @@ package com.bupt.ltb.sem.vouching.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.bupt.ltb.sem.vouching.pojo.UserPaper;
 
 /**
@@ -19,7 +21,7 @@ public interface UserPaperMapper {
 	 * @param userId
 	 * @return
 	 */
-	public List<Integer> findExamIdByUserId(Integer userId);
+	public List<Integer> findExamIdByUserId(@Param("userId") Integer userId);
 
 	/**
 	 * 保存用户试卷
@@ -52,7 +54,7 @@ public interface UserPaperMapper {
 	 * @return
 	 */
 	public List<UserPaper> findUserpaperByExamIdsAndStatus(Map<String, Object> map);
-	
+
 	/**
 	 * 通过试卷ID和试卷处理状态查询试卷信息
 	 * 
@@ -67,7 +69,7 @@ public interface UserPaperMapper {
 	 * @param userPaperId
 	 * @return
 	 */
-	public UserPaper findUserpaperByUserPaperId(Integer userPaperId);
+	public UserPaper findUserpaperByUserPaperId(@Param("userPaperId") Integer userPaperId);
 
 	/**
 	 * 修改学生答卷的状态和分数

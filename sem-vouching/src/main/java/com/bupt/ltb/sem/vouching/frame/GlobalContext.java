@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.bupt.ltb.sem.vouching.pojo.Exam;
+
 /**
  * 全局上下文
  * 
@@ -21,12 +23,18 @@ public class GlobalContext {
 
 	private Map<Integer, List<? extends Question>> currentPracticePaper = new HashMap<>();
 
+	private Map<Integer, Exam> currentExam = new HashMap<>();
+
 	public Map<Integer, Integer[]> getCurrentEmailIndex() {
 		return currentEmailIndex;
 	}
 
 	public Map<Integer, List<? extends Question>> getCurrentPracticePaper() {
 		return currentPracticePaper;
+	}
+
+	public Map<Integer, Exam> getCurrentExam() {
+		return currentExam;
 	}
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
- * 权限切面
+ * 权限拦截器
  * 
  * @author Hogan
  *
@@ -16,14 +16,22 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Component
 public class AuthorityInterceptor extends HandlerInterceptorAdapter {
 
+	private static final String FRONT_LOGIN_PATH = "forwardFrontLogin";
+	private static final String BACK_LOGIN_PATH = "forwardBackLogin";
+	private static final String LOGIN_PATH = "user/login";
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		HttpSession session = request.getSession();
-		System.out.println(handler);
-		if (session.getAttribute(Consts.SESSION_USER) == null) {
-			request.getRequestDispatcher("/views/front/login.jsp").forward(request, response);
+		String url = request.getRequestURL().toString();
+		if (url.contains(FRONT_LOGIN_PATH) || url.contains(BACK_LOGIN_PATH) || url.contains(LOGIN_PATH)) {
+			return true;
 		}
-		return super.preHandle(request, response, handler);
+		HttpSession session = request.getSession();
+		if (session.getAttribute(Consts.SESSION_USER) == null) {
+			request.getRequestDispatcher("/WEB-INF/views/front/login.jsp").forward(request, response);
+			return false;
+		}
+		return true;
 	}
 
 }

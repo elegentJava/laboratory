@@ -123,7 +123,7 @@ public class ForwardController {
 	public static final String PATH_START_EXAM = "/exam_start";
 	public String startExam = PATH_START_EXAM;
 
-	public static final String PATH_EXAM_RECORD = "/exam_record";
+	public static final String PATH_EXAM_RECORD = "/exam_student_record";
 	public String examRecord = PATH_EXAM_RECORD;
 
 	public static final String PATH_MARK_PAPER = "/exam_mark_paper";
@@ -132,9 +132,6 @@ public class ForwardController {
 	public static final String PATH_MARK_DETAIL = "/exam_mark_detail";
 	public String markDetail = PATH_MARK_DETAIL;
 
-	public static final String PATH_EXAM_GRADE = "/exam_grade";
-	public String examGrade = PATH_EXAM_GRADE;
-	
 	public static final String PATH_EXAM_SETTING = "/exam_setting";
 	public String examSetting = PATH_EXAM_SETTING;
 
