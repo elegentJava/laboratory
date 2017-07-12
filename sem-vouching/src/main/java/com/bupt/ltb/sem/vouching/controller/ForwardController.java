@@ -42,11 +42,14 @@ public class ForwardController {
 
 	public static final String PATH_COMPEPITION = "/competition";
 	public String competition = PATH_COMPEPITION;
+	
+	public static final String PATH_COMPEPITION_STATION = "/competition_station";
+	public String competitionStation = PATH_COMPEPITION_STATION;
 
-	public static final String PATH_COMPEPITION_EXAM = "/competitionexam";
+	public static final String PATH_COMPEPITION_EXAM = "/competition_exam";
 	public String competitionExam = PATH_COMPEPITION_EXAM;
 
-	public static final String PATH_COMPETITION_RECORD = "/competitionrecord";
+	public static final String PATH_COMPETITION_RECORD = "/competition_record";
 	public String competitionRecord = PATH_COMPETITION_RECORD;
 
 	public static final String PATH_EMAIL = "/email";
@@ -490,7 +493,41 @@ public class ForwardController {
 		return formFrontResult(exam, examStudentScore);
 	}
 	
+	/**
+	 * 跳转到竞技匹配页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardCompetitionStation")
+	public String forwardCompetition(){
+		return formFrontResult(competition, competitionStation);
+	}
 	
+	/**
+	 * 跳转到竞技试卷页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardCompetitionExam")
+	public String forwardCompetitionExam(){
+		return formFrontResult(competition, competitionExam);
+	}
+	
+	/**
+	 * 跳转到竞技记录页面
+	 * 
+	 * @param token
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("forwardCompetitionRecord")
+	public String forwardCompetitionRecord(){
+		return formFrontResult(competition, competitionRecord);
+	}
 	
 	
 	

@@ -85,7 +85,7 @@
 									</li>
 								</c:if>
 								<li style="padding-left: 285px;" name="jjpt" class='s_li'>
-									<a href="/vouching/forward/forwardCompetition" target="menu">知识点竞技</a> | 
+									<a href="/vouching/forward/forwardCompetitionStation" target="menu">知识点竞技</a> | 
 									<a href="/vouching/forward/forwardCompetitionRecord" target="menu">查看成绩</a>
 								</li>
 								<c:choose>

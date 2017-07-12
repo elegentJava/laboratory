@@ -21,5 +21,7 @@ public class PageSize {
 	public static final int EXAM_GRADE_RECORD = 10;
 	public static final int USER_PAPER_RECORD = 6;
 	public static final int EXAM_RECORD_COUNT = 10;
+	public static final int COMPETITION_RANK_RESULT = 6;
+	public static final int COMPETITION_RECORD = 10;
 
 }

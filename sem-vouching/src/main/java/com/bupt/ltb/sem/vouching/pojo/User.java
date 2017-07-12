@@ -37,6 +37,8 @@ public class User implements Serializable {
 	private String roleName;
 
 	private Date loginDate;
+	private String competitionIndex;
+	private Integer competitionScore;
 
 	private Class clas;
 
@@ -210,6 +212,22 @@ public class User implements Serializable {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
+	}
+
+	public String getCompetitionIndex() {
+		return competitionIndex;
+	}
+
+	public void setCompetitionIndex(String competitionIndex) {
+		this.competitionIndex = competitionIndex;
+	}
+
+	public Integer getCompetitionScore() {
+		return competitionScore;
+	}
+
+	public void setCompetitionScore(Integer competitionScore) {
+		this.competitionScore = competitionScore;
 	}
 
 }

@@ -78,5 +78,8 @@ public class Consts {
 	public static final Integer EXAM_JOINED = 1;
 	public static final Integer USER_PAPER_DONE = 1;
 	public static final Integer USER_PAPER_UNDO = 0;
-
+	public static final Integer QUEUE_INIT_SIZE = 20;
+	public static final Integer QUEUE_MATCH_SIZE = 2;
+	public static final Integer QUESTION_COUNT = 10;
+	
 }

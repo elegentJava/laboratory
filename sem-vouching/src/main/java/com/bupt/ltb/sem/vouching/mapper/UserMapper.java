@@ -95,4 +95,20 @@ public interface UserMapper {
 	 */
 	public User findUserById(@Param("userId") Integer userId);
 
+	/**
+	 * 查询用户积分
+	 * 
+	 * @param rankLimit
+	 * @return
+	 */
+	public List<User> findUserByCredit(@Param("rankLimit") Integer rankLimit);
+
+	/**
+	 * 更新用户的积分
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public Integer updateCredit(User user);
+
 }

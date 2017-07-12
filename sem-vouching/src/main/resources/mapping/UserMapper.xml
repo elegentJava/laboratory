@@ -108,4 +108,19 @@
 		where u_userid = #{userId}
 	</select>
 	
+	<!-- 查询用户积分 -->
+	<select id="findUserByCredit" parameterType="int" resultMap="simpleUser">
+		select 
+		u_userid,u_name,u_isonline,u_credit
+		from vo_user
+		where u_role = 1 limit 0,#{rankLimit}
+	</select>
+	
+	<!-- 更新用户的积分 -->
+	<update id="updateCredit" parameterType="User">
+		update vo_user
+		set u_credit = u_credit + #{credit}
+		where u_userid = #{userId}
+	</update>
+	
 </mapper>

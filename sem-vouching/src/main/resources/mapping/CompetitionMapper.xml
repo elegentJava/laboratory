@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bupt.ltb.sem.vouching.mapper.CompetitionMapper">
+
+	<resultMap type="Competition" id="singleCompetition">
+		<id property="competitionId" column="cp_id" />
+		<result property="score" column="cp_score" />
+		<result property="userId" column="cp_userid" />
+		<result property="date" column="cp_date" />
+	</resultMap>
+
+	<!-- 通过用户id获取竞技信息 -->
+	<select id="findCompetitionsByUserId" parameterType="int" resultMap="singleCompetition">
+		select cp_id,cp_score,cp_userid,cp_date
+		from vo_competition
+		where cp_userid = #{userId}
+	</select>
+	
+	<!-- 生成一条竞技记录 -->
+	<insert id="addCompetition" parameterType="Competition">
+		insert into vo_competition(cp_score,cp_userid,cp_date)
+		values(#{score},#{userId},#{date})
+	</insert>
+
+</mapper>
