@@ -26,6 +26,14 @@
 					<tbody id="rankList"></tbody>
 				</table>
 			</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 			<td align="center" valign="top" class="right_td">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>

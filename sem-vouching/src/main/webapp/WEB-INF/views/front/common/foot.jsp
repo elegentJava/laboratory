@@ -10,7 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>页面底部</title>
 </head>
-<body>
+<body style="height:30px">
 	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
 		<tr>
 			<td width="100%" colspan="2" height="10" bgcolor="#256E00">
