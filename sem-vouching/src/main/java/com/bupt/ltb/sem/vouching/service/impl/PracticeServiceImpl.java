@@ -204,7 +204,7 @@ public class PracticeServiceImpl implements PracticeService {
                 answer[count] = question.getAnswer();
                 count++;
             }
-            if (count + totalCount >= 200 &&( (totalScore+score )/ (totalCount+count)) > (3 / 4)) {
+            if (count + totalCount >= 200 &&((totalScore+score )/ (totalCount+count)) > (3 / 4)) {
                 practicePassed = 1;
                 user.setPracticePassed(1);
             }
