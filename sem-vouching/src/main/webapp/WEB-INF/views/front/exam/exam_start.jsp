@@ -45,7 +45,7 @@
 		<tr>
 			<td colspan="2">
 				<div class="TypeTitle" style="background-color: #f4fbf8;font-family: 黑体; font-size: 20px;">
-					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第1部分：单选</font></strong>
+					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第1部分：单选(<span id="radioScore"></span>分)</font></strong>
 				</div>
 			</td>
 		</tr>
@@ -55,7 +55,7 @@
 		<tr style="background-color: #f4fbf8;">
 			<td colspan="2">
 				<div class="TypeTitle" style="background-color: #f4fbf8;font-family: 黑体; font-size: 20px;">
-					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第2部分：名词解释</font></strong>
+					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第2部分：名词解释(<span id="phraseScore"></span>分)</font></strong>
 				</div>
 			</td>
 		</tr>
@@ -65,7 +65,7 @@
 		<tr style="background-color: #f4fbf8;">
 			<td colspan="2">
 				<div class="TypeTitle" style="background-color: #f4fbf8;font-family: 黑体; font-size: 20px;">
-					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第3部分：填空</font></strong>
+					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第3部分：填空(<span id="blankScore"></span>分)</font></strong>
 				</div>
 			</td>
 		</tr>
@@ -75,7 +75,7 @@
 		<tr style="background-color: #f4fbf8;">
 			<td colspan="2">
 				<div class="TypeTitle" style="background-color: #f4fbf8;font-family: 黑体; font-size: 20px;">
-					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第4部分：翻译</font></strong>
+					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第4部分：翻译(<span id="translateScore"></span>分)</font></strong>
 				</div>
 			</td>
 		</tr>
@@ -85,7 +85,7 @@
 		<tr style="background-color: #f4fbf8;">
 			<td colspan="2">
 				<div class="TypeTitle" style="background-color: #f4fbf8;font-family: 黑体; font-size: 20px;">
-					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第5部分：完型</font></strong>
+					<strong><font color="#417ac1" size="FONT-SIZE: 9pt">第5部分：完型(<span id="clozeScore"></span>分)</font></strong>
 				</div>
 			</td>
 		</tr>

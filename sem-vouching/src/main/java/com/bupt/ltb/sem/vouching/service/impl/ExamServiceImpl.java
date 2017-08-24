@@ -524,6 +524,7 @@ public class ExamServiceImpl implements ExamService {
 			} else {
 				detail.put("clozes", null);
 			}
+			detail.put("exam",exam);
 			detail.put("examId", exam.getExamId());
 			detail.put("examName", exam.getName());
 			detail.put("bak", exam.getBak());

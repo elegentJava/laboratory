@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="zh">
 <head>
@@ -7,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>函电资源站</title>
-<link rel="stylesheet" type="text/css"
-	href="/corre/dep/bootstrap-3.3.7/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/corre/dep/bootstrap-3.3.7/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/corre/css/default.css">
 <link rel="stylesheet" type="text/css" href="/corre/css/styles.css">
 <link rel="stylesheet" type="text/css" href="/corre/css/index.css">
