@@ -20,10 +20,28 @@ public class Practice {
 	private Date date;
 	private Integer userId;
 	private Integer chapterId;
+	private Integer level;
 
 	private Chapter chapter;
 	private String chapterName;
 	private String formatDate;
+	private int practised;
+
+	public int getPractised() {
+		return practised;
+	}
+
+	public void setPractised(int practised) {
+		this.practised = practised;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 
 	public Integer getPracticeId() {
 		return practiceId;

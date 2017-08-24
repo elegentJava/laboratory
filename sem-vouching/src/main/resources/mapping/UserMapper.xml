@@ -16,6 +16,9 @@
 		<result column="u_ispass" property="isPass"/>
 		<result column="u_role" property="role"/>
 		<result column="u_classid" property="classId"/>
+		<result column="u_practice_passed" property="practicePassed"/>
+		<result column="u_competition_passed" property="competitionPassed"/>
+		<result column="u_total_passed" property="totalPassed"/>
 	</resultMap>
 	
 	<resultMap type="User" id="userAndClass">

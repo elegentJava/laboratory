@@ -129,6 +129,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 		String[] answers = jParams.getObject("answers", String[].class);
 		Integer score = 0;
 		Integer count = 0;
+		Integer competitionPassed=0;
 		if (answers != null) {
 			String competitionIndex = user.getCompetitionIndex();
 			if (competitionIndex != null) {
@@ -153,6 +154,10 @@ public class CompetitionServiceImpl implements CompetitionService {
 							e.setCompetitionScore(score);
 							break;
 						}
+					}
+					if (count >= 200 && (score / count) > (3 / 4)) {
+						competitionPassed = 1;
+						user.setCompetitionPassed(1);
 					}
 					Competition competition = new Competition();
 					competition.setDate(new Date());
@@ -308,7 +313,7 @@ public class CompetitionServiceImpl implements CompetitionService {
 	/**
 	 * 随机生成一套试题
 	 * 
-	 * @param competition
+	 * @param
 	 */
 	private void randomGenerateQuestions(CompetitionBean competitionBean) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
