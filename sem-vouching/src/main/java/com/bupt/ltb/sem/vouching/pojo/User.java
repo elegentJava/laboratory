@@ -27,6 +27,8 @@ public class User implements Serializable {
     private Integer role;
     private Integer credit;
     private Integer isPass;
+    //计算练习，竞技，考试，案例的学分
+    private Integer allCredit;
 
     // 前台显示要用到的
     private String formatLastLoginDate;
@@ -39,7 +41,10 @@ public class User implements Serializable {
     //新增练习，竞技通过标记
     private Integer practicePassed;
     private Integer competitionPassed;
-    private Integer totalPassed;
+    //总共做的竞技题数
+    private Integer competitionPracticed;
+    //总共做的练习题数
+    private Integer practiceDone;
     private Date loginDate;
     private String competitionIndex;
     private Integer competitionScore;
@@ -132,6 +137,14 @@ public class User implements Serializable {
 
     public void setCredit(Integer credit) {
         this.credit = credit;
+    }
+
+    public void addAllCredit(Integer allCredit) {
+        this.allCredit += allCredit;
+    }
+
+    public Integer getAllCredit() {
+        return allCredit;
     }
 
     public Integer getIsPass() {
@@ -238,23 +251,31 @@ public class User implements Serializable {
         return practicePassed;
     }
 
-    public void setPracticePassed(Integer practicePassed) {
-        this.practicePassed = practicePassed;
+    public void addPracticePassed(Integer practicePassed) {
+        this.practicePassed += practicePassed;
     }
 
     public Integer getCompetitionPassed() {
         return competitionPassed;
     }
 
-    public void setCompetitionPassed(Integer competitionPassed) {
-        this.competitionPassed = competitionPassed;
+    public void addCompetitionPassed(Integer competitionPassed) {
+        this.competitionPassed += competitionPassed;
     }
 
-    public Integer getTotalPassed() {
-        return totalPassed;
+    public Integer getCompetitionPracticed() {
+        return competitionPracticed;
     }
 
-    public void setTotalPassed(Integer totalPassed) {
-        this.totalPassed = totalPassed;
+    public void addCompetitionPracticed(Integer competitionPracticed) {
+        this.competitionPracticed += competitionPracticed;
+    }
+
+    public Integer getPracticeDone() {
+        return practiceDone;
+    }
+
+    public void addPracticeDone(Integer practiceDone) {
+        this.practiceDone += practiceDone;
     }
 }

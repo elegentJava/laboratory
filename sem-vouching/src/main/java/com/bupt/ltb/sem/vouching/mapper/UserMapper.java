@@ -111,4 +111,18 @@ public interface UserMapper {
 	 */
 	public Integer updateCredit(User user);
 
+
+	/**
+	 * 练习竞技后更新用户的学分
+	 * @param user
+	 * @return
+	 */
+	public Integer updatePCCredit(User user);
+	/**
+	 * 更新用户获得的总学分
+	 * @param user
+	 * @return
+	 */
+	public Integer updateObtainCredit(User user);
+
 }

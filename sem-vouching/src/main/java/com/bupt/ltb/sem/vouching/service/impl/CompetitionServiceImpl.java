@@ -129,7 +129,10 @@ public class CompetitionServiceImpl implements CompetitionService {
 		String[] answers = jParams.getObject("answers", String[].class);
 		Integer score = 0;
 		Integer count = 0;
-		Integer competitionPassed=0;
+		//totalCount为做过所有竞技的总题数
+		Integer competitionPracticed = user.getCompetitionPracticed();
+		//totalScore为做过所有竞技的总得分
+		Integer competitionPassed = user.getCompetitionPassed();
 		if (answers != null) {
 			String competitionIndex = user.getCompetitionIndex();
 			if (competitionIndex != null) {
@@ -152,12 +155,19 @@ public class CompetitionServiceImpl implements CompetitionService {
 					for (User e : users) {
 						if (e.getUserId() == user.getUserId()) {
 							e.setCompetitionScore(score);
+							competitionPracticed=e.getCredit()+count;
+							competitionPassed=e.getCompetitionPassed()+score;
+							user.addCompetitionPassed(competitionPassed);
+							user.addCompetitionPracticed(competitionPracticed);
+							userMapper.updatePCCredit(user);
 							break;
 						}
 					}
-					if (count >= 200 && (score / count) > (3 / 4)) {
-						competitionPassed = 1;
-						user.setCompetitionPassed(1);
+
+
+					if (competitionPracticed >= 200 && (competitionPassed / competitionPracticed) > (3 / 4)) {
+						user.addAllCredit(Consts.COMPETITION_PASSED);
+						userMapper.updateObtainCredit(user);
 					}
 					Competition competition = new Competition();
 					competition.setDate(new Date());

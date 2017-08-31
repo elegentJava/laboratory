@@ -24,7 +24,7 @@
 	<!-- 通过用户查询练习记录 -->
 	<select id="findPracticesByUserId" parameterType="int" resultMap="PracticeAndChapter">
 		select
-		pt_id,pt_score,pt_date,pt_userid,pt_chapterid,ch_name，pt_practised
+		pt_id,pt_score,pt_date,pt_userid,pt_chapterid,ch_name
 		from vo_practice ,vo_chapter 
 		where pt_chapterid = ch_id and pt_userid = #{userId}
 	</select>

@@ -81,5 +81,14 @@ public class Consts {
 	public static final Integer QUEUE_INIT_SIZE = 20;
 	public static final Integer QUEUE_MATCH_SIZE = 2;
 	public static final Integer QUESTION_COUNT = 10;
-	
+
+
+	//课程通过标准为10分，竞技通过得2分，练习通过得两分，考试通过得五分，案例通过得一分
+	public static final Integer COMPETITION_PASSED=2;
+	public static final Integer PRACTICE_PASSED=2;
+	public static final Integer EXAM_PASSED=5;
+	public static final Integer CASE_PASSED=1;
+	public static final Integer COURSE_PASSED=10;
+
+
 }

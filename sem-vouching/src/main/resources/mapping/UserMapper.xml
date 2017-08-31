@@ -18,7 +18,9 @@
 		<result column="u_classid" property="classId"/>
 		<result column="u_practice_passed" property="practicePassed"/>
 		<result column="u_competition_passed" property="competitionPassed"/>
-		<result column="u_total_passed" property="totalPassed"/>
+		<result column="u_allcredit" property="allCredit"/>
+		<result column="u_competitionpracticed" property="competitionPracticed"/>
+		<result column="u_practicedone" property="practiceDone"/>
 	</resultMap>
 	
 	<resultMap type="User" id="userAndClass">
@@ -39,7 +41,7 @@
 	<!-- 通过账号密码获取用户信息 -->
 	<select id="findUserByAP" parameterType="string" resultMap="simpleUser">
 		select
-		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit,u_classid 
+		u_userid,u_account,u_password,u_name,u_sex,u_isonline,u_role,u_email,u_lastlogindate,u_credit,u_classid,u_practice_passed,u_competition_passed,u_allcredit,u_competitionpracticed,u_practicedone
 		from vo_user
 		where u_account = #{account} and u_password = #{password}
 	</select>
@@ -123,6 +125,23 @@
 	<update id="updateCredit" parameterType="User">
 		update vo_user
 		set u_credit = u_credit + #{credit}
+		where u_userid = #{userId}
+	</update>
+
+	<!-- 练习竞技后更新用户的积分 -->
+	<update id="updatePCCredit" parameterType="User">
+		update vo_user
+		set u_practice_passed = #{practicePassed},
+			u_practicedone=#{practiceDone},
+			u_competition_passed=#{competitionPassed},
+			u_competitionpracticed=#{competitionPracticed}
+		where u_userid = #{userId}
+	</update>
+
+	<!-- 更新用户所有获得的积分 -->
+	<update id="updateObtainCredit" parameterType="Integer">
+		update vo_user
+		set u_allcredit = u_allcredit + #{allCredit}
 		where u_userid = #{userId}
 	</update>
 	

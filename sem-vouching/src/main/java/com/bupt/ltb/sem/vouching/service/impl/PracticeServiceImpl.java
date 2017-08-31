@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import com.bupt.ltb.sem.vouching.mapper.*;
+import com.sun.tools.internal.jxc.ap.Const;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -18,13 +20,6 @@ import com.bupt.ltb.sem.vouching.frame.Consts;
 import com.bupt.ltb.sem.vouching.frame.GlobalContext;
 import com.bupt.ltb.sem.vouching.frame.PageSize;
 import com.bupt.ltb.sem.vouching.frame.Question;
-import com.bupt.ltb.sem.vouching.mapper.BlankMapper;
-import com.bupt.ltb.sem.vouching.mapper.ChapterMapper;
-import com.bupt.ltb.sem.vouching.mapper.ClozeMapper;
-import com.bupt.ltb.sem.vouching.mapper.PhraseMapper;
-import com.bupt.ltb.sem.vouching.mapper.PracticeMapper;
-import com.bupt.ltb.sem.vouching.mapper.RadioMapper;
-import com.bupt.ltb.sem.vouching.mapper.TranslateMapper;
 import com.bupt.ltb.sem.vouching.pojo.Chapter;
 import com.bupt.ltb.sem.vouching.pojo.Practice;
 import com.bupt.ltb.sem.vouching.pojo.Radio;
@@ -67,6 +62,9 @@ public class PracticeServiceImpl implements PracticeService {
 
     @Resource
     private PracticeMapper practiceMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     @Resource
     private GlobalContext globalContext;
@@ -176,17 +174,12 @@ public class PracticeServiceImpl implements PracticeService {
         List<Practice> practices = practiceMapper.findPracticesByUserId(user.getUserId());
         Integer score = 0;
         Integer count = 0;
-        //totalCount为做过所有练习的总题数
-        Integer totalCount = 0;
-        //totalScore为做过所有练习的总得分
-        Integer totalScore = 0;
         String[] answer = new String[5];
-        //practicePassed为0时练习未通过，为1是通过
-        Integer practicePassed = 0;
-        for (Practice practice : practices) {
-            totalCount = totalCount + practice.getPractised();
-            totalScore = totalScore + practice.getScore();
-        }
+        //practiceTotalCount为做过所有练习的总题数
+        Integer practiceDone = user.getPracticeDone();
+        //practiceTotalScore为做过所有练习的总得分
+        Integer practicePassed = user.getPracticePassed();
+
         if (answers != null) {
             List<? extends Question> questions = globalContext.getCurrentPracticePaper().get(user.getUserId());
             for (Question question : questions) {
@@ -204,9 +197,14 @@ public class PracticeServiceImpl implements PracticeService {
                 answer[count] = question.getAnswer();
                 count++;
             }
-            if (count + totalCount >= 200 &&((totalScore+score )/ (totalCount+count)) > (3 / 4)) {
-                practicePassed = 1;
-                user.setPracticePassed(1);
+            practiceDone += count;
+            practicePassed += score;
+            user.addPracticePassed(practicePassed);
+            user.addPracticeDone(practiceDone);
+            userMapper.updatePCCredit(user);
+            if (practiceDone >= 200 && (practicePassed / practiceDone) > (3 / 4)) {
+                user.addAllCredit(Consts.PRACTICE_PASSED);
+                userMapper.updateObtainCredit(user);
             }
             Practice practice = new Practice();
             practice.setChapterId(chapterId);

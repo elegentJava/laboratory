@@ -25,15 +25,7 @@ public class Practice {
 	private Chapter chapter;
 	private String chapterName;
 	private String formatDate;
-	private int practised;
 
-	public int getPractised() {
-		return practised;
-	}
-
-	public void setPractised(int practised) {
-		this.practised = practised;
-	}
 
 	public Integer getLevel() {
 		return level;

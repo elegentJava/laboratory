@@ -8,56 +8,55 @@ import com.bupt.ltb.sem.vouching.frame.Consts;
 
 /**
  * 竞技实体
- * 
- * @author Hogan
  *
+ * @author Hogan
  */
 public class Competition {
 
-	private Integer competitionId;
-	private Integer score;
-	private Integer userId;
-	private Date date;
+    private Integer competitionId;
+    private Integer score;
+    private Integer userId;
+    private Date date;
 
-	private String formatDate;
-	
-	public Integer getCompetitionId() {
-		return competitionId;
-	}
+    private String formatDate;
 
-	public void setCompetitionId(Integer competitionId) {
-		this.competitionId = competitionId;
-	}
+    public Integer getCompetitionId() {
+        return competitionId;
+    }
 
-	public Integer getScore() {
-		return score;
-	}
+    public void setCompetitionId(Integer competitionId) {
+        this.competitionId = competitionId;
+    }
 
-	public void setScore(Integer score) {
-		this.score = score;
-	}
+    public Integer getScore() {
+        return score;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public void setScore(Integer score) {
+        this.score = score;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
-	public String getFormatDate() {
-		if (this.date != null) {
-			formatDate = DateFormatUtils.format(this.date, Consts.DATE_SIMPLE_PATTERN);
-		}
-		return formatDate;
-	}
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getFormatDate() {
+        if (this.date != null) {
+            formatDate = DateFormatUtils.format(this.date, Consts.DATE_SIMPLE_PATTERN);
+        }
+        return formatDate;
+    }
 
 }
